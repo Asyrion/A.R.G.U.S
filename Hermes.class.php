@@ -85,6 +85,7 @@ class Hermes {
             // return date("d.m.Y H:s:i");
         }else if(preg_match("/Kommando/i", $message) || preg_match("/kannst/i", $message) || preg_match("/Version/i", $message) || preg_match("/Author/i", $message) || preg_match("/Befehle/i", $message)) {
             
+            if(preg_match("/Kommando/i", $message) || preg_match("/kannst/i", $message) || preg_match("/Befehl/i", $message)) {
                 $output .= "Hmm. ";
                 sleep(5);
                 $output .= "So einige Dinge.";
