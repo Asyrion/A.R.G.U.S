@@ -83,7 +83,15 @@ class Hermes {
         }else if(lib_check_time($word, $message)){
             $output .= "Es ist ".date("H:i")." Uhr, Roman.";
             // return date("d.m.Y H:s:i");
+        }else if(preg_match("/Kommando/i", $message) || preg_match("/kannst/i", $message) || preg_match("/Version/i", $message) || preg_match("/Author/i", $message) || preg_match("/Befehle/i", $message)) {
+            
+                $output .= "Hmm. ";
+                sleep(5);
+                $output .= "So einige Dinge.";
+            }
         }
+        
+        
         return $output;
         
         
@@ -92,16 +100,16 @@ class Hermes {
 //         }
     }
     
-    public function CheckAction($word, $message) {
-        $output = "";
-        if(preg_match("/Wetter/i", $message) || preg_match("/Grad/i",$message) || preg_match("/Celsius/i", $message)) { 
-            $output .= 
-        }else if(lib_check_time($word, $message)){
-            $output .= "Es ist ".date("H:i")." Uhr, Roman.";
-            // return date("d.m.Y H:s:i");
-        }
-        
-        return $output;
-    }
+//     public function CheckAction($word, $message) {
+//         $output = "";
+//         if(preg_match("/Wetter/i", $message) || preg_match("/Grad/i",$message) || preg_match("/Celsius/i", $message)) { 
+//             $output .= 
+//         }else if(lib_check_time($word, $message)){
+//             $output .= "Es ist ".date("H:i")." Uhr, Roman.";
+//             // return date("d.m.Y H:s:i");
+//         }
+//         
+//         return $output;
+//     }
 }
 ?>
