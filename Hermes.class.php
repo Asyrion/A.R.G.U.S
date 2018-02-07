@@ -17,7 +17,7 @@ class Hermes {
     // Set the messags send to zero
     public $messages_send     = 0;
     
-    
+    // Our send message
     private $message;
     
     /**
@@ -60,7 +60,7 @@ class Hermes {
     /**
      * Stand: 30.01.2018
      * Funktionen einbauen zur Pruefung ob
-     * bereis begrueÃŸt wurde und wieviele Nachrichten bereits
+     * bereis begrueßt wurde und wieviele Nachrichten bereits
      * gesendet wurden.
      *
      * Schauen ob der Name des Benutzers herausgefunden werden kann 
@@ -69,33 +69,28 @@ class Hermes {
      public function CheckGreeting($word, $message) {
         $output = "";
   
-        if(lib_check_greeting($word, $message)) {
+        if(preg_match("/hallo/i", $word) || preg_match("/hallö*/i", $word) || preg_match("/halli*/i", $word) || preg_match("/hi*/i", $word) || preg_match("/hey*/i", $word) || preg_match("/ho*/i", $word)) {
             if(preg_match("/ARGUS/i", $message)) {
                 $output  = "Mein Name ist A.R.G.U.S. Ich bin der Hausassistent von Roman. ";
             }
             
-            if(preg_match("/Hallo/i", $message) || preg_match("/halli/i", $message) || preg_match("/hallÃ¶/i", $message)) {
+            if(preg_match("/Hallo/i", $message) || preg_match("/halli/i", $message) || preg_match("/hallö/i", $message)) {
                 $output .= "Hallo ... ";
                 sleep(1);
-                $output .= "Was kann ich fÃ¼r dich tuen?";
+                $output .= "Was kann ich für dich tuen?";
             }
             $greeted = TRUE;
-        }else if(lib_check_time($word, $message)){
+        }else if(preg_match("/spät*/i", $message) || preg_match("/Uhrzeit*/i", $message) || preg_match("/Zeit*/i", $message) || preg_match("/sagt*Tacho*/i", $message)){
             $output .= "Es ist ".date("H:i")." Uhr, Roman.";
-            // return date("d.m.Y H:s:i");
+            
         }
         return $output;
-        
-        
-//         if(!lib_check_greeting($word) OR !lib_check_time($word)) {
-//             return "Ein weiser Mann sagte mal: Nur zwei Dinge in Unserem Universum sind unendlich, die ausdehung der Galaxie und die Dummheit des Menschen...ich finde diesen Spruch ziemlich zutreffend.";
-//         }
     }
     
     public function CheckAction($word, $message) {
         $output = "";
         if(preg_match("/Wetter/i", $message) || preg_match("/Grad/i",$message) || preg_match("/Celsius/i", $message)) { 
-            $output .= 
+            $output .= "Welches Wetter wir haben?";
         }else if(lib_check_time($word, $message)){
             $output .= "Es ist ".date("H:i")." Uhr, Roman.";
             // return date("d.m.Y H:s:i");
