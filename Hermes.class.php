@@ -3,19 +3,20 @@ include_once("lib.php");
 
 class Hermes {
     public $name          = "A.R.G.U.S.";
-    // public $customer_name = "";
+    public $customer_name = "";
     // public $mood = rand(0,2);
     
     // Store variables for holding if the user was already greeted
     // and other important sidenotes
-    public $greeted           = FALSE;
-    public $action_in_queque  = FALSE;
+    private $greeted           = FALSE;
+    private $action_in_queque  = FALSE;
+    private $name_known        = FALSE;
     
     ### Variables for analytics ###
     // Set the counter of actions to zero
-    public $actions_performed = 0;
+    private $actions_performed = 0;
     // Set the messags send to zero
-    public $messages_send     = 0;
+    private $messages_send     = 0;
     
     // Our send message
     private $message;
@@ -42,20 +43,43 @@ class Hermes {
         }
     }
     
+    /**
+     * Function CheckKeyword used to read the single word and
+     * the whole message and look for certain words that trigger
+     * an string.
+     *
+     * @parameter $word    A single word from our input message
+     * @parameter $message Our whole input message
+     * @return    string   Our output string
+     * 
+    */
     public function CheckKeyword($word, $message) {
-        if(!$greeted) {
+        if(!$this->name_known) {
+            return $this->AskForName();
+        }
+        
+        if($this->greeted) {
                 return $this->CheckGreeting($word, $message);
         }
         
-        if(!$action_in_queque) {
+        if(!$this->action_in_queque) {
             return $this->CheckAction($word, $message);
         }
         return $this->CheckGreeting($word, $message);
     }
     
-    public function GetTime() {
-        echo "Test";
-    }    
+    /**
+     * Function AskForName
+     *
+     * Function used to ask the user for his
+     * name and to use it for further
+     * answers.
+     */
+    public function AskForName() {
+        $this->name_known = TRUE;
+        
+        return "Ich glaube wir wurden uns noch nicht vorgestellt oder? Würdest du mir deinen Namen verraten:";
+    }
     
     /**
      * Stand: 30.01.2018
@@ -65,6 +89,13 @@ class Hermes {
      *
      * Schauen ob der Name des Benutzers herausgefunden werden kann 
      * ueber die Sender-ID -> Facebook API
+     *
+     *
+     * Function CheckGreeting 
+     *
+     * This function should be used to look for 
+     * a greeting keyword.
+     *
      */
      public function CheckGreeting($word, $message) {
         $output = "";
@@ -77,13 +108,13 @@ class Hermes {
             if(preg_match("/Hallo/i", $message) || preg_match("/halli/i", $message) || preg_match("/hallö/i", $message)) {
                 $output .= "Hallo ... ";
                 sleep(1);
-                $output .= "Was kann ich für dich tuen?";
+                $output .= "Was kann ich für dich tun?";
             }
             $greeted = TRUE;
         }else if(preg_match("/spät*/i", $message) || preg_match("/Uhrzeit*/i", $message) || preg_match("/Zeit*/i", $message) || preg_match("/sagt*Tacho*/i", $message)){
-            $output .= "Es ist ".date("H:i")." Uhr, Roman.";
-            
+            $output .= "Es ist ".date("H:i")." Uhr.";
         }
+        
         return $output;
     }
     
@@ -95,7 +126,6 @@ class Hermes {
             $output .= "Es ist ".date("H:i")." Uhr, Roman.";
             // return date("d.m.Y H:s:i");
         }
-        
         return $output;
     }
 }
