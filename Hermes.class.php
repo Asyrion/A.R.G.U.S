@@ -76,7 +76,7 @@ class Hermes {
     public function AskForName() {
         $this->customer_name = "";
         
-        return "Ich glaube wir wurden uns noch nicht vorgestellt oder? Würdest du mir deinen Namen verraten:";
+        return "Ich glaube wir wurden uns noch nicht vorgestellt oder? Würdest du mir deinen Namen verraten.";
     }
     
     /**
@@ -109,7 +109,7 @@ class Hermes {
                 $output .= "Was kann ich für dich tun?";
             }
             $greeted = TRUE;
-<<<<<<< HEAD
+
         }else if(lib_check_time($word, $message)){
             $output .= "Es ist ".date("H:i")." Uhr, Roman.";
             // return date("d.m.Y H:s:i");
@@ -122,31 +122,9 @@ class Hermes {
             }
         }
         
-        
-        return $output;
-        
-=======
-        }else if(preg_match("/spät*/i", $message) || preg_match("/Uhrzeit*/i", $message) || preg_match("/Zeit*/i", $message) || preg_match("/sagt*Tacho*/i", $message)){
-            $output .= "Es ist ".date("H:i")." Uhr.";
-        }
->>>>>>> 66acae771782265b9c8a30811d3a236bfdd3ed1d
-        
         return $output;
     }
     
-<<<<<<< HEAD
-//     public function CheckAction($word, $message) {
-//         $output = "";
-//         if(preg_match("/Wetter/i", $message) || preg_match("/Grad/i",$message) || preg_match("/Celsius/i", $message)) { 
-//             $output .= 
-//         }else if(lib_check_time($word, $message)){
-//             $output .= "Es ist ".date("H:i")." Uhr, Roman.";
-//             // return date("d.m.Y H:s:i");
-//         }
-//         
-//         return $output;
-//     }
-=======
     public function CheckAction($word, $message) {
         $output = "";
         if(preg_match("/Wetter/i", $message) || preg_match("/Grad/i",$message) || preg_match("/Celsius/i", $message)) { 
@@ -157,6 +135,5 @@ class Hermes {
         }
         return $output;
     }
->>>>>>> 66acae771782265b9c8a30811d3a236bfdd3ed1d
 }
 ?>
