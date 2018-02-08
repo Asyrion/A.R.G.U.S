@@ -1,0 +1,30 @@
+{
+    "art": "Fahrzeuge",
+    "tabelle": "Fahrzeuge",
+    "members": [
+    {
+        "car"        : "SLS63 AMG",
+        "brand"      : "Mercedes Benz",
+        "price"      : "63250",
+        "special"    : "AMG",
+        "seats"      : 2,
+        "horsepower" : 652
+    },
+    {
+        "car"        : "S63 AMG",
+        "brand"      : "Mercedes Benz",
+        "price"      : "100000",
+        "special"    : "AMG",
+        "seats"      : 4,
+        "horsepower" : 633
+    },
+    {
+        "car"        : "Golf 7 R",
+        "brand"      : "Volkswagen",
+        "price"      : "25000",
+        "special"    : "",
+        "seats"      : 4,
+        "horsepower" : 250
+    }
+    ]
+}
