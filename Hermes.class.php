@@ -2,15 +2,13 @@
 include_once("lib.php");
 
 class Hermes {
-    public $name          = "A.R.G.U.S.";
-    public $customer_name = "";
-    // public $mood = rand(0,2);
+    private $name          = "A.R.G.U.S.";
+    private $customer_name = "";
     
     // Store variables for holding if the user was already greeted
     // and other important sidenotes
     private $greeted           = FALSE;
     private $action_in_queque  = FALSE;
-    private $name_known        = FALSE;
     
     ### Variables for analytics ###
     // Set the counter of actions to zero
@@ -54,7 +52,7 @@ class Hermes {
      * 
     */
     public function CheckKeyword($word, $message) {
-        if(!$this->name_known) {
+        if(empty($this->customer_name)) {
             return $this->AskForName();
         }
         
@@ -76,7 +74,7 @@ class Hermes {
      * answers.
      */
     public function AskForName() {
-        $this->name_known = TRUE;
+        $this->customer_name = "";
         
         return "Ich glaube wir wurden uns noch nicht vorgestellt oder? Würdest du mir deinen Namen verraten:";
     }
