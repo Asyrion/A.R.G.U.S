@@ -1,0 +1,69 @@
+<!-- Copyright ©2018 Roman Harms                                        -->
+<!--  Permission is hereby granted, free of charge, to any person       -->
+<!--  obtaining a copy of this software and associated documentation    -->
+<!--  files (the "Software"), to deal in the Software without           -->
+<!--  restriction, including without limitation the rights to use,      -->
+<!--  copy, modify, merge, publish, distribute, sublicense, and/or sell -->
+<!--  copies of the Software, and to permit persons to whom the         -->
+<!--  Software is furnished to do so, subject to the following          -->
+<!--  conditions:                                                       -->
+<!--  The above copyright notice and this permission notice shall be    -->
+<!--  included in all copies or substantial portions of the Software.   -->
+<!--  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
+<!--  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
+<!--  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
+<!--  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
+<!--  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
+<!--  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
+<!--  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
+<!--  OTHER DEALINGS IN THE SOFTWARE.                                   -->
+<!--  Complies with the AIML 1.0 Standard                               -->
+<!--  as adopted by the ALICE A.I. Foundation.                          -->
+<!--  Last modified 02-09-2018                                          -->
+<!--  file: test.aiml                                                   -->
+
+<!--  Used for testing AIML and creating a simple conversation          -->
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0">
+    <category>
+        <pattern>TEST</pattern>
+        <template>
+            <think>
+                <set name="topic">TEST</set>
+                <set name="stopit">0</set>
+            </think>
+            Das soll also dein Test sein?
+        </template>
+    </category>
+    
+        <topic name="TEST">
+            <category>
+                <pattern>*</pattern>
+                <template>
+                    <think>
+                        <set name="topic">TEST2</set>
+                    </think>
+                    <random>
+                        <li>Ich glaube nicht das dieser Test den allgemeinen Richtlinien der Tests entspricht.</li>
+                        <li>Bist du sicher das ein guter Test nicht umfangreicher sein sollte?</li>
+                    </random>
+                </template>
+            </category>
+        </topic>
+    
+        <topic name="TEST2">
+            <category>
+                <pattern>*</pattern>
+                <template>
+                    <think>  
+                        <set name="topic">TEST2</set>
+                        <set name="stopit">0</set>
+                    </think>
+                    <random>
+                        <li>Eigentlich ist es relativ egal wie du antwortest. Das mit dem Test kannst du nicht wieder gut machen...</li>
+                        <li>Ich glaube ich war gerade ein wenig zu harsch mit dir. Es tut mir leid...</li>
+                    </random>
+                </template>
+            </category>
+        </topic>
+</aiml>
