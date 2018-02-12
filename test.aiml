@@ -67,6 +67,9 @@
             Ciao
         </template>
     </category>
+    
+    
+    <!-- Srai test -->
     <category>
         <pattern>FABRIK</pattern>
         <template>
@@ -79,8 +82,6 @@
             <srai>FABRIK</srai>
         </template>
     </category>
-    <!-- Hier beginnt der Teil der argus.aiml 
-        Sie wird genutzt um antworten ueber ARGUS selbst zu geben -->
     <category>
         <pattern>ARGUS</pattern>
         <template>
@@ -133,6 +134,8 @@
             <srai>WIE GEHT ES DIR</srai>
         </template>
     </category>
+    
+    <!-- Variable test -->
     <category>
         <pattern>MEIN NAME IST *</pattern>
         <template>
@@ -156,6 +159,35 @@
         <pattern>ICH HEISSE *</pattern>
         <template>
             Achso <set name="username"> <star/> </set> das wusste ich gar nicht?!
+        </template>
+    </category>
+    
+    <!-- That tag test used for creating convos -->
+    <category>
+        <pattern>WIE IST ES MIT FILMEN</pattern>
+        <template>
+            Magst du Actionfilme?
+        </template>
+    </category>
+    <category>
+        <pattern>JA</pattern>
+        <that>Magst du Actionfilme?</that>
+        <template>
+            Ui, Actionfilme mag ich auch!
+        </template>
+    </category>
+    <category>
+        <pattern>NEIN</pattern>
+        <that>Magst du Actionfilme?</that>
+        <template>
+            Ok! Ich mag Actionfilme
+        </template>
+    </category>
+    <category>
+        <pattern>NE*</pattern>
+        <that>Magst du Actionfilme?</that>
+        <template>
+            Ok! Ich mag Actionfilme
         </template>
     </category>
 </aiml>

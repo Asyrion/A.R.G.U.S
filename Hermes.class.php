@@ -47,6 +47,8 @@ class Hermes {
         
         $result = $json->botsay;
         
+        $result = $this->CheckKeywords($result);
+        
         return $result;
     }
     
@@ -79,6 +81,25 @@ class Hermes {
     
     private function GetConvoID($json) {
         $this->convo_id = $json->convo_id;
+    }
+    
+    private function CheckKeywords($message) {
+        if(preg_match("/||/",$message)) {
+            $message = $this->ProceedKeyword($message);
+        }
+        return $message;
+    }
+    
+    private function ProceedKeyword($message) {
+        if(preg_match("/||/",$message)) {
+            $array = explode("||", $message);
+            
+            if ($array[1] == "NOW") {
+                $output = date("d.m.Y");
+                $message = str_replace("||NOW||", $output, $message);
+            }
+            return $message;
+        }
     }
 }
 ?>
