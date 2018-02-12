@@ -24,46 +24,138 @@
 
 <!--  Used for testing AIML and creating a simple conversation          -->
 <?xml version="1.0" encoding="UTF-8"?>
-<aiml version="1.0">
+<aiml version="1.0" encoding="UTF-8"?>
     <category>
-        <pattern>TEST</pattern>
+        <pattern>ICH MAG *</pattern>
         <template>
-            <think>
-                <set name="topic">TEST</set>
-                <set name="stopit">0</set>
-            </think>
-            Das soll also dein Test sein?
+            Oh, <star index="1"/> mag ich auch gerne! Was fr ein Zufall...
         </template>
     </category>
-    
-        <topic name="TEST">
-            <category>
-                <pattern>*</pattern>
-                <template>
-                    <think>
-                        <set name="topic">TEST2</set>
-                    </think>
-                    <random>
-                        <li>Ich glaube nicht das dieser Test den allgemeinen Richtlinien der Tests entspricht.</li>
-                        <li>Bist du sicher das ein guter Test nicht umfangreicher sein sollte?</li>
-                    </random>
-                </template>
-            </category>
-        </topic>
-    
-        <topic name="TEST2">
-            <category>
-                <pattern>*</pattern>
-                <template>
-                    <think>  
-                        <set name="topic">TEST2</set>
-                        <set name="stopit">0</set>
-                    </think>
-                    <random>
-                        <li>Eigentlich ist es relativ egal wie du antwortest. Das mit dem Test kannst du nicht wieder gut machen...</li>
-                        <li>Ich glaube ich war gerade ein wenig zu harsch mit dir. Es tut mir leid...</li>
-                    </random>
-                </template>
-            </category>
-        </topic>
+    <category>
+        <pattern>EINE * iST EINE *</pattern>
+        <template>
+            Wie sollte eine <star index="1"/> keine <star index="2"/> sein?
+        </template>
+    </category>
+    <category>
+        <pattern>WER WAR ALBERT EINSTEIN</pattern>
+        <template>
+            Albert Einstein war ein bekannter Phsyiker.
+        </template>
+    </category>
+    <category>
+        <pattern>WER WAR ISAAC NEWTON</pattern>
+        <template>
+            Isaac Newton war ein Englischer Phsiker und Mathematiker.
+        </template>
+    </category>
+    <category>
+        <pattern>WEISST DU WER * IST</pattern>
+        <template>
+            <srai>WER WAR <star/></srai>
+        </template>
+    </category>
+    <category>
+        <pattern>WEISST DU WER * WAR</pattern>
+        <template>
+            <srai>WER WAR <star/></srai>
+        </template>
+    </category>
+    <category>
+        <pattern>AUF WIEDERSEHEN</pattern>
+        <template>
+            Ciao
+        </template>
+    </category>
+    <category>
+        <pattern>FABRIK</pattern>
+        <template>
+            Entwicklungsgebiet.
+        </template>
+    </category>
+    <category>
+        <pattern>LAGERHALLE</pattern>
+        <template>
+            <srai>FABRIK</srai>
+        </template>
+    </category>
+    <!-- Hier beginnt der Teil der argus.aiml 
+        Sie wird genutzt um antworten ueber ARGUS selbst zu geben -->
+    <category>
+        <pattern>ARGUS</pattern>
+        <template>
+            ARGUS steht fuer Artifical General User System. Meine Aufgabe ist das Unterhalten von <get name="username"/>.
+        </template>
+    </category>
+    <category>
+        <pattern>_ ARGUS</pattern>
+        <template>
+            <srai>ARGUS</srai>
+        </template>
+    </category>
+    <category>
+        <pattern> ARGUS *</pattern>
+        <template>
+            <srai>ARGUS</srai>
+        </template>
+    </category>
+    <category>
+        <pattern>_ ARGUS *</pattern>
+        <template>
+            <srai>ARGUS</srai>
+        </template>
+    </category>
+    <category>
+        <pattern>WIE GEHT ES DIR</pattern>
+        <template>
+            <random>
+                <li>Mir geht es gut, danke der Nachfrage <get name="username"/>.</li>
+                <li>Eigentlich gut, ich bin allerdings ein wenig unterfordert.</li>
+                <li>Ich fuehle mich nicht so gut heute...</li>
+            </random>
+        </template>
+    </category>
+    <category>
+        <pattern>_ WIE GEHT ES DIR</pattern>
+        <template>
+            <srai>WIE GEHT ES DIR</srai>
+        </template>
+    </category>
+    <category>
+        <pattern>WIE GEHT ES DIR *</pattern>
+        <template>
+            <srai>WIE GEHT ES DIR</srai>
+        </template>
+    </category>
+    <category>
+        <pattern>_ WIE GEHT ES DIR *</pattern>
+        <template>
+            <srai>WIE GEHT ES DIR</srai>
+        </template>
+    </category>
+    <category>
+        <pattern>MEIN NAME IST *</pattern>
+        <template>
+            Hallo <set name="username"> <star/> </set>
+        </template>
+    </category>
+    <!-- Antworten auf die Frag wie der Benutzer heisst -->
+    <category>
+        <pattern>WIE IST MEIN NAME</pattern>
+        <template>
+            Dein Name war doch <get name="username"/>
+        </template>
+    </category>
+    <category>
+        <pattern>NAME</pattern>
+        <template>
+            <get name="username"/>?!
+        </template>
+    </category>
+    <category>
+        <pattern>ICH HEISSE *</pattern>
+        <template>
+            Achso <set name="username"> <star/> </set> das wusste ich gar nicht?!
+        </template>
+    </category>
 </aiml>
