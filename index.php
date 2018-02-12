@@ -1,4 +1,5 @@
 <?php
+
 	//error_reporting(0);
     $access_token = "EAAbDikW6jKYBAEn8u3LeWXUzbiOq4cYFRZBxCmZC79jvZB7wWTch0tZC5bV6LpsuzzT6DPJWKgbcfi0z81MSQQnBeU6gK1DecoIZBDPXD5RBVAU8C1u0ZBAtQvICSpZBW2oTeR5G95XbCMmn1pkOIzkRpnikwHdioFFZAQXhkpYZATJzcHTeW3I44";
 
@@ -22,7 +23,7 @@
 
     $sender = $input["entry"][0]["messaging"][0]["sender"]["id"];
     $message = $input["entry"][0]["messaging"][0]["message"]["text"];
-    
+
     /**
     * Some Basic rules to validate incoming messages
     */
@@ -40,19 +41,21 @@
 
     $message_to_reply = "";
     /**
-    * In der Datei User.class.php wird das Verhalten von ARGUS
+    * In der Datei Hermes.class.php wird das Verhalten von ARGUS
     * festgehalten. Hier trifft er seine Entscheidungen.
     *
-    *
+    * Die Hermes Klasse ruft dabei die API von
+    * ARGUS auf, welche mithilfe von AIML
+    * eine passende Antwort gibt.
     */
     include_once("Hermes.class.php");
-    
+
     $Hermes = new Hermes;
     
     $message_to_reply = $Hermes->InputMessage($message);
     
     echo $message_to_reply;
-
+    
     //API Url
     $url = "https://graph.facebook.com/v2.6/me/messages?access_token=".$access_token;
 
@@ -72,28 +75,6 @@
         'text':'".$message_to_reply."'
         }
     }";
-    
-//     echo "<pre>";
-//     echo var_dump($jsonData);
-//     echo "<pre>";
-//     /* PHP SDK v5.0.0 */
-// /* make the API call */
-// try {
-//   // Returns a `Facebook\FacebookResponse` object
-//   $response = $fb->get(
-//     '/',
-//     '{access-token}'
-//   );
-// } catch(Facebook\Exceptions\FacebookResponseException $e) {
-//   echo 'Graph returned an error: ' . $e->getMessage();
-//   exit;
-// } catch(Facebook\Exceptions\FacebookSDKException $e) {
-//   echo 'Facebook SDK returned an error: ' . $e->getMessage();
-//   exit;
-// }
-// $graphNode = $response->getGraphNode();
-// echo $graphNode;
-    // echo $jsonData;
     
     //Encode the array into JSON.
     $jsonDataEncoded = $jsonData;
