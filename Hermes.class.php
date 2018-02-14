@@ -27,6 +27,7 @@ class Hermes {
     // The format for our response
     private $format = "json";
     
+    
     /**
      * Function InputMessage:
      *
@@ -38,6 +39,7 @@ class Hermes {
      * @return    $result  The response from ARGUS to the user
      */
     public function InputMessage($message) {
+        
         $message = str_replace(" ", "+", $message);
         
         $json = $this->CallAPI($message);
@@ -84,11 +86,17 @@ class Hermes {
     }
     
     private function CheckKeywords($message) {
-        if(preg_match("/||/",$message)) {
-            $message = $this->ProceedKeyword($message);
+        
+        if(preg_match("/||USERNAME||/", $message)) {
+            $output = $message;
         }
-        return $message;
+        
+        if(preg_match("/||/",$message) && empty($output)) {
+            $output = $this->ProceedKeyword($message);
+        }
+        return $output;
     }
+
     
     private function ProceedKeyword($message) {
         if(preg_match("/||/",$message)) {
