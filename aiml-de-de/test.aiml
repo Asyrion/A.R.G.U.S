@@ -1,0 +1,193 @@
+<!-- Copyright ©2018 Roman Harms                                        -->
+<!--  Permission is hereby granted, free of charge, to any person       -->
+<!--  obtaining a copy of this software and associated documentation    -->
+<!--  files (the "Software"), to deal in the Software without           -->
+<!--  restriction, including without limitation the rights to use,      -->
+<!--  copy, modify, merge, publish, distribute, sublicense, and/or sell -->
+<!--  copies of the Software, and to permit persons to whom the         -->
+<!--  Software is furnished to do so, subject to the following          -->
+<!--  conditions:                                                       -->
+<!--  The above copyright notice and this permission notice shall be    -->
+<!--  included in all copies or substantial portions of the Software.   -->
+<!--  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
+<!--  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
+<!--  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
+<!--  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
+<!--  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
+<!--  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
+<!--  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
+<!--  OTHER DEALINGS IN THE SOFTWARE.                                   -->
+<!--  Complies with the AIML 1.0 Standard                               -->
+<!--  as adopted by the ALICE A.I. Foundation.                          -->
+<!--  Last modified 02-09-2018                                          -->
+<!--  file: test.aiml                                                   -->
+
+<!--  Used for testing AIML and creating a simple conversation          -->
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0" encoding="UTF-8"?>
+    <category>
+        <pattern>ICH MAG *</pattern>
+        <template>
+            Oh, <star index="1"/> mag ich auch gerne! Was fr ein Zufall...
+        </template>
+    </category>
+    <category>
+        <pattern>EINE * iST EINE *</pattern>
+        <template>
+            Wie sollte eine <star index="1"/> keine <star index="2"/> sein?
+        </template>
+    </category>
+    <category>
+        <pattern>WER WAR ALBERT EINSTEIN</pattern>
+        <template>
+            Albert Einstein war ein bekannter Phsyiker.
+        </template>
+    </category>
+    <category>
+        <pattern>WER WAR ISAAC NEWTON</pattern>
+        <template>
+            Isaac Newton war ein Englischer Phsiker und Mathematiker.
+        </template>
+    </category>
+    <category>
+        <pattern>WEISST DU WER * IST</pattern>
+        <template>
+            <srai>WER WAR <star/></srai>
+        </template>
+    </category>
+    <category>
+        <pattern>WEISST DU WER * WAR</pattern>
+        <template>
+            <srai>WER WAR <star/></srai>
+        </template>
+    </category>
+    <category>
+        <pattern>AUF WIEDERSEHEN</pattern>
+        <template>
+            Ciao
+        </template>
+    </category>
+    
+    
+    <!-- Srai test -->
+    <category>
+        <pattern>FABRIK</pattern>
+        <template>
+            Entwicklungsgebiet.
+        </template>
+    </category>
+    <category>
+        <pattern>LAGERHALLE</pattern>
+        <template>
+            <srai>FABRIK</srai>
+        </template>
+    </category>
+    <category>
+        <pattern>ARGUS</pattern>
+        <template>
+            ARGUS steht fuer Artifical General User System. Meine Aufgabe ist das Unterhalten von <get name="username"/>.
+        </template>
+    </category>
+    <category>
+        <pattern>_ ARGUS</pattern>
+        <template>
+            <srai>ARGUS</srai>
+        </template>
+    </category>
+    <category>
+        <pattern> ARGUS *</pattern>
+        <template>
+            <srai>ARGUS</srai>
+        </template>
+    </category>
+    <category>
+        <pattern>_ ARGUS *</pattern>
+        <template>
+            <srai>ARGUS</srai>
+        </template>
+    </category>
+    <category>
+        <pattern>WIE GEHT ES DIR</pattern>
+        <template>
+            <random>
+                <li>Mir geht es gut, danke der Nachfrage <get name="username"/>.</li>
+                <li>Eigentlich gut, ich bin allerdings ein wenig unterfordert.</li>
+                <li>Ich fuehle mich nicht so gut heute...</li>
+            </random>
+        </template>
+    </category>
+    <category>
+        <pattern>_ WIE GEHT ES DIR</pattern>
+        <template>
+            <srai>WIE GEHT ES DIR</srai>
+        </template>
+    </category>
+    <category>
+        <pattern>WIE GEHT ES DIR *</pattern>
+        <template>
+            <srai>WIE GEHT ES DIR</srai>
+        </template>
+    </category>
+    <category>
+        <pattern>_ WIE GEHT ES DIR *</pattern>
+        <template>
+            <srai>WIE GEHT ES DIR</srai>
+        </template>
+    </category>
+    
+    <!-- Variable test -->
+    <category>
+        <pattern>MEIN NAME IST *</pattern>
+        <template>
+            Hallo <set name="username"> <star/> </set>
+        </template>
+    </category>
+    <!-- Antworten auf die Frag wie der Benutzer heisst -->
+    <category>
+        <pattern>WIE IST MEIN NAME</pattern>
+        <template>
+            Dein Name war doch <get name="username"/>
+        </template>
+    </category>
+    <category>
+        <pattern>NAME</pattern>
+        <template>
+            <get name="username"/>?!
+        </template>
+    </category>
+    <category>
+        <pattern>ICH HEISSE *</pattern>
+        <template>
+            Achso <set name="username"> <star/> </set> das wusste ich gar nicht?!
+        </template>
+    </category>
+    
+    <!-- That tag test used for creating convos -->
+    <category>
+        <pattern>WIE IST ES MIT FILMEN</pattern>
+        <template>
+            Magst du Actionfilme?
+        </template>
+    </category>
+    <category>
+        <pattern>JA</pattern>
+        <that>Magst du Actionfilme?</that>
+        <template>
+            Ui, Actionfilme mag ich auch!
+        </template>
+    </category>
+    <category>
+        <pattern>NEIN</pattern>
+        <that>Magst du Actionfilme?</that>
+        <template>
+            Ok! Ich mag Actionfilme
+        </template>
+    </category>
+    <category>
+        <pattern>NE*</pattern>
+        <that>Magst du Actionfilme?</that>
+        <template>
+            Ok! Ich mag Actionfilme
+        </template>
+    </category>
+</aiml>
