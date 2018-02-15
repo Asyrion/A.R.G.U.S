@@ -36,7 +36,79 @@
     </category>
     
     <category>
-        <pattern>Hallo</pattern>
+        <pattern>HI</pattern>
+        <template>
+            <condition name="greeted" value="TRUE">
+                Wir haben doch heute schon gesprochen oder nicht?
+            </condition>
+            <condition name="greeted" value="FALSE">
+                ||USERNAME|| ? <think><set name="greeted">FALSE</set></think>
+            </condition>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>HO</pattern>
+        <template>
+            <condition name="greeted" value="TRUE">
+                Wir haben doch heute schon gesprochen oder nicht?
+            </condition>
+            <condition name="greeted" value="FALSE">
+                ||USERNAME|| ? <think><set name="greeted">FALSE</set></think>
+            </condition>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>JO</pattern>
+        <template>
+            <condition name="greeted" value="TRUE">
+                Wir haben doch heute schon gesprochen oder nicht?
+            </condition>
+            <condition name="greeted" value="FALSE">
+                ||USERNAME|| ? <think><set name="greeted">FALSE</set></think>
+            </condition>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>YO</pattern>
+        <template>
+            <condition name="greeted" value="TRUE">
+                Wir haben doch heute schon gesprochen oder nicht?
+            </condition>
+            <condition name="greeted" value="FALSE">
+                ||USERNAME|| ? <think><set name="greeted">FALSE</set></think>
+            </condition>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>EYO</pattern>
+        <template>
+            <condition name="greeted" value="TRUE">
+                Wir haben doch heute schon gesprochen oder nicht?
+            </condition>
+            <condition name="greeted" value="FALSE">
+                ||USERNAME|| ? <think><set name="greeted">FALSE</set></think>
+            </condition>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>HALLO</pattern>
+        <template>
+          <condition name="greeted" value="TRUE">
+                Wir haben doch heute schon gesprochen oder nicht?
+            </condition>
+            <condition name="greeted" value="FALSE">
+                ||USERNAME|| ? <think><set name="greeted">FALSE</set></think>
+            </condition>        
+        </template>
+    </category>
+    
+    <category>
+        <pattern>SERVUS</pattern>
         <template>
           <condition name="greeted" value="TRUE">
                 Wir haben doch heute schon gesprochen oder nicht?
@@ -55,21 +127,10 @@
         </template>
     </category>
     
-    <topic name="test">
-        <category>
-            <pattern> _ </pattern>
-            <that>Wusste ich doch, dass ich mich an dich errinnere.</that>
-            <template>
-                Worueber moechtest du reden?
-            </template>
-        </category>
-
-        <category>
-            <pattern> * </pattern>
-            <that>Wusste ich doch, dass ich mich an dich errinnere.</that>
-            <template>
-                Worueber moechtest du reden?
-            </template>
-        </category>
-    </topic>
+    <category>
+        <pattern> * </pattern>
+        <template>
+            Worueber moechtest du reden?
+        </template>
+    </category>
 </aiml>
