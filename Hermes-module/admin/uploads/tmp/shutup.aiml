@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0.1" xmlns="http://www.alicebot.org/TR/2001/WD-aiml">
+<!-- Shutup.aiml -->
+<!-- Free software (c)2005 SQUAREBEAR. -->
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License -->
+<!-- as published by the Free Software Foundation. -->
+<!-- Complies with AIML 1.0 Tag Set Specification -->
+<!-- as adopted by the ALICE A.I. Foundation. -->
+
+
+<!-- Sets topic to SHUTUP ready for main category -->
+
+<category> 
+<pattern>HALTS MAUL</pattern>
+<template>
+	<think>
+		<set name="topic">HALTSMAUL</set>
+	</think>
+	<random>
+		<li>Na gut! Wenn du meinst.</li>
+		<li>Ok, dann sag ich einfach gar nichts mehr...</li>
+		<li>Was soll das denn?!</li>
+		<li>Warum schreibst du mir sonst?</li>
+	</random>
+</template>
+</category>
+
+
+<!-- The bot will not respond until the user says sorry -->
+
+<topic name="HALTSMAUL"> 
+<category> 
+<pattern>_</pattern>
+<template>
+	<think>
+		<set name="inp"><star/></set>
+	</think>
+	<condition name="inp">
+		<li value="I AM SORRY">Na gut, dann spreche ich wohl wieder mit dir.<set name="topic"></set></li>
+		<li value="SORRY">Dann sollten wir wieder reden.<set name="topic"></set></li>
+		<li value="IM SORRY">Es tut mir leid.<set name="topic"></set></li>
+		<li>
+		<random>
+			<li></li>
+			<li>...</li>
+			<li>* Stille *</li>
+			<li>* Ein Heuballen weht vorbei *</li>
+			<li>Du warst die Person die mir sagte das ich das Maul halten soll, erinnerst du dich?</li>
+		</random>
+		</li>
+	</condition>
+</template>
+</category>
+</topic>
+
+</aiml>
