@@ -24,21 +24,23 @@
     $sender = $input["entry"][0]["messaging"][0]["sender"]["id"];
     $message = $input["entry"][0]["messaging"][0]["message"]["text"];
 
-    /**
-    * Some Basic rules to validate incoming messages
-    */
-//     if(preg_match("[Zeit|Uhrzeit|Jetzt]", strtolower($message))) {
-// 
-//         // Make request to Time API
-//         ini_set("user_agent","Mozilla/4.0 (compatible; MSIE 6.0)");
-//         $result = file_get_contents("http://www.timeapi.org/utc/now?format=%25a%20%25b%20%25d%20%25I:%25M:%25S%20%25Y");
-//         if($result != "") {
-//             $message_to_reply = $result;
-//         }
-//     } else {
-//         $message_to_reply = "Huh! Was hat du gesagt?";
-//     }
+    
+    ### Variables for database connection
+    $host   = "rdbms.strato.de";
+    $user   = "U3261345";
+    $pass   = "Dohvakijn1996";
+    $dbname = "DB3261345";
 
+    if(mysqli_connect($host, $user, $pass)) {
+        $datalink = mysqli_connect($host, $user, $pass);
+    }else{
+        echo "Could not connect to MySQL-Database...";
+    }
+    
+    if(!mysqli_select_db($datalink, $dbname)) {
+        echo "Could not select database";
+    }
+    
     $message_to_reply = "";
     /**
     * In der Datei Hermes.class.php wird das Verhalten von ARGUS
@@ -53,6 +55,18 @@
     $Hermes = new Hermes;
     
     $message_to_reply = $Hermes->InputMessage($message);
+    
+    // TODO Remove this crap from here
+    if(preg_match("/||USERNAME||/", $message_to_reply)) {
+        $query  = "SELECT ";
+        $query .= $dbname.".users.user_name";
+        $query .= " FROM ".$dbname.".users";
+        $query .= " WHERE ".$dbname.".users.id = '95'";
+        $row = mysqli_fetch_array(mysqli_query($datalink, $query));
+        
+        $message_to_reply = str_replace("||USERNAME||", $row["user_name"], $message_to_reply);
+    }
+    $message_to_reply = str_replace("ue", "ü", $message_to_reply);
     
     echo $message_to_reply;
     
