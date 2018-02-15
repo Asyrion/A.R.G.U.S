@@ -24,28 +24,52 @@
 <!--  file: greeting.aiml                                    -->
 <aiml version="1.0">
     <category>
-        <pattern>Hey</pattern>
+        <pattern>HEY</pattern>
         <template>
-            <condition name="username" value="">
-                Darf ich fragen wie du heisst?
+            <condition name="greeted" value="TRUE">
+                Wir haben doch heute schon gesprochen oder nicht?
             </condition>
-            <condition name="username" value="Roman">
-                <srai>MEIN NAME IST *</srai>
+            <condition name="greeted" value="FALSE">
+                ||USERNAME|| ? <think><set name="greeted">FALSE</set></think>
             </condition>
         </template>
     </category>
     
     <category>
-        <pattern>MEIN NAME IST *</pattern>
+        <pattern>Hallo</pattern>
         <template>
-            Achso.Hey <set name="username"><star index="1"/></set>!
+          <condition name="greeted" value="TRUE">
+                Wir haben doch heute schon gesprochen oder nicht?
+            </condition>
+            <condition name="greeted" value="FALSE">
+                ||USERNAME|| ? <think><set name="greeted">FALSE</set></think>
+            </condition>        
         </template>
     </category>
     
     <category>
-        <pattern>*</pattern>
+        <pattern>JA</pattern>
+        <that>Wir haben doch heute schon gesprochen oder nicht?</that>
         <template>
-            <that>Darf ich fragen wie du heisst?</that>
+            Wusste ich doch, dass ich mich an dich errinnere.<think><set name="topic">test</set></think>
         </template>
     </category>
+    
+    <topic name="test">
+        <category>
+            <pattern> _ </pattern>
+            <that>Wusste ich doch, dass ich mich an dich errinnere.</that>
+            <template>
+                Worueber moechtest du reden?
+            </template>
+        </category>
+
+        <category>
+            <pattern> * </pattern>
+            <that>Wusste ich doch, dass ich mich an dich errinnere.</that>
+            <template>
+                Worueber moechtest du reden?
+            </template>
+        </category>
+    </topic>
 </aiml>

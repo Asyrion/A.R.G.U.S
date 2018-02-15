@@ -1,18 +1,35 @@
 <?php
 include_once("lib.php");
 
+/**
+ * Hermes class
+ *
+ * Used for communicating with
+ * the facebook messenger api
+ * and sending and receiving messages to the user.
+ *
+ * PHP fragment of ARGUS:
+ *
+ * @function InputMessage   ->
+ * @function CallAPI        ->
+ * @function GetConvoID     ->
+ * @function CheckKeywords  ->
+ * @function ProceedKeyword ->
+ *
+ * @attribute name          ->
+ * @attribute convo_id      ->
+ * @attribute message       ->
+ * @attribute bot_id        ->
+ * @attribute url           ->
+ * @attribute format        ->
+ *
+ * @author  Roman Harms
+ * @version V 0.0.1.3
+ */
 class Hermes {
     private $name          = "A.R.G.U.S.";
     
-    ### Variables for analytics ###
-    // Set the counter of actions to zero
-    private $actions_performed = 0;
-    
-    // Set the messags send to zero
-    private $messages_send     = 0;
-    private $user_id  = "";
     private $convo_id = "akhl54hkkpkf4enl2sv677r7e4";
-    
     
     ### Variables for use with the api
     // Our send message
@@ -26,7 +43,6 @@ class Hermes {
     
     // The format for our response
     private $format = "json";
-    
     
     /**
      * Function InputMessage:
