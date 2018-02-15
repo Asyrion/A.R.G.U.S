@@ -133,4 +133,12 @@
             Worueber moechtest du reden?
         </template>
     </category>
+    
+    <category>
+        <pattern> _ </pattern>
+        <that>Worueber moechtest du reden?</that>
+        <template>
+            ||<star index="0"/>||
+        </template>
+    </category>
 </aiml>
