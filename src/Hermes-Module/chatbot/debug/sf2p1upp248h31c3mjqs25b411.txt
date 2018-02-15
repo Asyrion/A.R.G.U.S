@@ -1,0 +1,247 @@
+08-02-2018 20:43:00.26579[0][4] - Elapsed time: 1.816 milliseconds
+[conversation_start.php][Called outside of function][57]
+Conversation starting. Current system specs:
+  Program O version:            2.6.8
+  Server Software:              Apache/2.4.29 (Unix)
+  PHP Version:                  7.0.27
+  OS:                           SunOS localhost 5.10 Generic_150401-49 i86pc
+  OS Version:                   SunOS localhost 5.10 Generic_150401-49 i86pc
+  MySQL Version:                5.6.37-log
+  Multi-byte functions enabled: true 
+-----------------------
+08-02-2018 20:43:00.31929[4][4] - Elapsed time: 53.509 milliseconds
+[load_aimlfunctions.php][Called outside of function][16]
+AIML function include files loaded 
+-----------------------
+08-02-2018 20:43:00.35002[4][4] - Elapsed time: 30.730 milliseconds
+[load_convofunctions.php][Called outside of function][16]
+Convofunction include files loaded 
+-----------------------
+08-02-2018 20:43:00.36543[4][4] - Elapsed time: 15.409 milliseconds
+[load_userfunctions.php][Called outside of function][14]
+userfunctions include files loaded 
+-----------------------
+08-02-2018 20:43:00.41809[4][4] - Elapsed time: 52.658 milliseconds
+[load_addons.php][Called outside of function][19]
+Loading addons 
+-----------------------
+08-02-2018 20:43:00.41814[4][4] - Elapsed time: 0.044 milliseconds
+[conversation_start.php][Called outside of function][70]
+Loaded all Includes 
+-----------------------
+08-02-2018 20:43:00.42303[0][4] - Elapsed time: 4.897 milliseconds
+[conversation_start.php][Called outside of function][124]
+Debug level: 4
+session ID = sf2p1upp248h31c3mjqs25b411 
+-----------------------
+08-02-2018 20:43:00.42305[4][4] - Elapsed time: 0.020 milliseconds
+[intialise_conversation.php][intialise_convoArray][29]
+Intialising conversation 
+-----------------------
+08-02-2018 20:43:00.42306[4][4] - Elapsed time: 0.010 milliseconds
+[intialise_conversation.php][load_blank_array_element][62]
+Loading blank topic array 
+-----------------------
+08-02-2018 20:43:00.42307[4][4] - Elapsed time: 0.012 milliseconds
+[intialise_conversation.php][load_blank_array_element][62]
+Loading blank that array 
+-----------------------
+08-02-2018 20:43:00.42308[4][4] - Elapsed time: 0.009 milliseconds
+[intialise_conversation.php][load_blank_array_element][62]
+Loading blank star array 
+-----------------------
+08-02-2018 20:43:00.42309[4][4] - Elapsed time: 0.009 milliseconds
+[intialise_conversation.php][load_blank_array_element][62]
+Loading blank input array 
+-----------------------
+08-02-2018 20:43:00.42310[4][4] - Elapsed time: 0.010 milliseconds
+[intialise_conversation.php][load_blank_stack][85]
+Loading blank stack 
+-----------------------
+08-02-2018 20:43:00.42311[4][4] - Elapsed time: 0.009 milliseconds
+[intialise_conversation.php][load_default_bot_values][110]
+Loading db bot personality properties 
+-----------------------
+08-02-2018 20:43:00.42313[3][4] - Elapsed time: 0.013 milliseconds
+[intialise_conversation.php][load_default_bot_values][118]
+load db bot personality values SQL: SELECT * FROM `DB3261345`.`botpersonality` WHERE `bot_id` = 1; 
+-----------------------
+08-02-2018 20:43:00.42436[2][4] - Elapsed time: 1.230 milliseconds
+[handle_user.php][load_new_client_defaults][24]
+Loading client defaults 
+-----------------------
+08-02-2018 20:43:00.42437[2][4] - Elapsed time: 0.014 milliseconds
+[conversation_start.php][Called outside of function][258]
+Conversation initialized, awaiting user 
+-----------------------
+08-02-2018 20:43:00.42449[2][4] - Elapsed time: 0.123 milliseconds
+[conversation_start.php][Called outside of function][264]
+Closing Database 
+-----------------------
+08-02-2018 20:43:00.42450[2][4] - Elapsed time: 0.008 milliseconds
+[PDO_functions.php][db_close][61]
+This DB is now closed. You don't have to go home, but you can't stay here. 
+-----------------------
+08-02-2018 20:43:00.42455[0][4] - Elapsed time: 0.048 milliseconds
+[conversation_start.php][Called outside of function][271]
+Conversation Ending. Elapsed time: 160.567 milliseconds. 
+-----------------------
+Debug Level: 4
+-----------------------
+Debug Mode: 1
+-----------------------
+CONVERSATION ARRAY
+-----------------------
+Array
+(
+    [conversation] => Array
+        (
+        )
+
+    [topic] => Array
+        (
+            [1] => 
+            [2] => 
+            [3] => 
+            [4] => 
+            [5] => 
+            [6] => 
+            [7] => 
+            [8] => 
+            [9] => 
+            [10] => 
+            [11] => 
+        )
+
+    [that] => Array
+        (
+            [1] => 
+            [2] => 
+            [3] => 
+            [4] => 
+            [5] => 
+            [6] => 
+            [7] => 
+            [8] => 
+            [9] => 
+            [10] => 
+            [11] => 
+        )
+
+    [star] => Array
+        (
+            [1] => 
+            [2] => 
+            [3] => 
+            [4] => 
+            [5] => 
+            [6] => 
+            [7] => 
+            [8] => 
+            [9] => 
+            [10] => 
+            [11] => 
+        )
+
+    [input] => Array
+        (
+            [1] => 
+            [2] => 
+            [3] => 
+            [4] => 
+            [5] => 
+            [6] => 
+            [7] => 
+            [8] => 
+            [9] => 
+            [10] => 
+            [11] => 
+        )
+
+    [stack] => Array
+        (
+            [top] => om
+            [second] => om
+            [third] => om
+            [fourth] => om
+            [fifth] => om
+            [sixth] => om
+            [seventh] => om
+            [last] => om
+        )
+
+    [bot_properties] => Array
+        (
+            [age] => So alt wie das digitale Zeitalter.
+            [baseballteam] => 
+            [birthday] => 
+            [birthplace] => 
+            [botmaster] => Roman
+            [boyfriend] => 
+            [build] => 
+            [celebrities] => 
+            [celebrity] => 
+            [class] => 
+            [email] => 
+            [emotions] => 
+            [ethics] => 
+            [etype] => 
+            [family] => 
+            [favoriteactor] => 
+            [favoriteactress] => 
+            [favoriteartist] => 
+            [favoriteauthor] => 
+            [favoriteband] => 
+            [favoritebook] => 
+            [favoritecolor] => 
+            [favoritefood] => 
+            [favoritemovie] => 
+            [favoritemusician] => 
+            [favoritesong] => 
+            [favoritesport] => 
+            [feelings] => 
+            [footballteam] => Seahawks. Natürlich.
+            [forfun] => 
+            [friend] => 
+            [friends] => 
+            [gender] => Männlich
+            [genus] => 
+            [girlfriend] => 
+            [hockeyteam] => 
+            [kindmusic] => 
+            [kingdom] => 
+            [language] => Deutsch
+            [location] => 
+            [looklike] => 
+            [loves] => 
+            [master] => Roman
+            [name] => A.R.G.U.S.
+            [nationality] => 
+            [order] => 
+            [orientation] => 
+            [party] => 
+            [phylum] => 
+            [president] => 
+            [question] => 
+            [religion] => 
+            [sign] => 
+            [size] => 
+            [species] => 
+            [talkabout] => 
+            [version] => 0.1
+            [vocabulary] => 
+            [wear] => 
+            [website] => 
+        )
+
+    [client_properties] => Array
+        (
+            [name] => Seeker
+            [id] => sf2p1upp248h31c3mjqs25b411
+        )
+
+    [send_to_user] => User input not detected.
+)
+
+-----------------------
+Total execution time: 160.567 Milliseconds. Goodbye.
