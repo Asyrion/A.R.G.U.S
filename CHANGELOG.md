@@ -1,6 +1,6 @@
 # A.R.G.U.S
 
-# Changelog
+## Changelog
 2018-02-12 - V 0.0.1.2
 - Added greeting.aiml prototype
 - Changed Hermes.class.php to be able to communicate with other apis
