@@ -130,15 +130,13 @@
     <category>
         <pattern> * </pattern>
         <template>
-            Worueber moechtest du reden?
-        </template>
-    </category>
-    
-    <category>
-        <pattern> _ </pattern>
-        <that>Worueber moechtest du reden?</that>
-        <template>
-            ||<star index="0"/>||
+            <think><set name="asked">FALSE</set></think>
+            <condition name="asked" value="FALSE">
+                Worueber moechtest du reden?<think><set name="asked">TRUE</set></think>
+            </condition>
+            <condition name="asked" value="TRUE">
+                ||<star index="1"/>||
+            </condition>
         </template>
     </category>
 </aiml>

@@ -97,6 +97,12 @@ class Hermes {
         return $json;
     }
     
+    /**
+     * Get the id of our conversation 
+     *
+     * TODO Write the conversation id into a file
+     * and read it from the file for further use.
+     */
     private function GetConvoID($json) {
         $this->convo_id = $json->convo_id;
     }
