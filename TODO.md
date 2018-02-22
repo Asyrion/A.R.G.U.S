@@ -15,3 +15,4 @@ As of 2018-02-15 (V 0.0.1.3):
 - Change the method of recognition by saving the convo id               -> still to come.
   in an text file with the user id provided by the facebook messenger
   to then read out that convo_id for further use and recognition
+- Connect do ARGUS via SSH to change some settings                      -> still to come.
