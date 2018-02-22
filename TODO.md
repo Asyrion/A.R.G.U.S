@@ -15,3 +15,10 @@ As of 2018-02-15 (V 0.0.1.3):
 - Change the method of recognition by saving the convo id               -> still to come.
   in an text file with the user id provided by the facebook messenger
   to then read out that convo_id for further use and recognition
+  
+
+  
+- Let ARGUS accept german special characters (ä,ö,ü,ß)
+- Use AIML 2.0 for future AIML files (Changed AIML-Template already)
+- Remove information needed for database connection from Hermes to write
+  a file which contains those

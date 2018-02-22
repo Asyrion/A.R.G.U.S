@@ -120,22 +120,21 @@
     </category>
     
     <category>
-        <pattern>JA</pattern>
+        <pattern>J_</pattern>
         <that>Wir haben doch heute schon gesprochen oder nicht?</that>
         <template>
-            Wusste ich doch, dass ich mich an dich errinnere.<think><set name="topic">test</set></think>
+            Wusste ich doch, dass ich mich an dich errinnere.<think><set name="asked">FALSE</set></think>
         </template>
     </category>
     
     <category>
-        <pattern> * </pattern>
+        <pattern>*</pattern>
         <template>
-            <think><set name="asked">FALSE</set></think>
-            <condition name="asked" value="FALSE">
-                Worueber moechtest du reden?<think><set name="asked">TRUE</set></think>
-            </condition>
             <condition name="asked" value="TRUE">
                 ||<star index="1"/>||
+            </condition>
+            <condition name="asked" value="FALSE">
+                Worueber moechtest du reden?<think><set name="asked">TRUE</set></think>
             </condition>
         </template>
     </category>

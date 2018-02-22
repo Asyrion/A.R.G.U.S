@@ -22,7 +22,7 @@
 <!--  as adopted by the ALICE A.I. Foundation.                          -->
 <!--  Last modified 02-09-2018                                          -->
 <!--  file: ARGUS_AIML_TEMPLATE.aiml                                    -->
-<aiml version="1.0">
+<aiml version="2.0">
     <topic name="COPYME">
         <category>
             <pattern>_</pattern>

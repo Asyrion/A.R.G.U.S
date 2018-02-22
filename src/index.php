@@ -23,7 +23,6 @@
 
     $sender = $input["entry"][0]["messaging"][0]["sender"]["id"];
     $message = $input["entry"][0]["messaging"][0]["message"]["text"];
-
     
     ### Variables for database connection
     $host   = "rdbms.strato.de";
@@ -54,7 +53,7 @@
 
     $Hermes = new Hermes;
     
-    $message_to_reply = $Hermes->InputMessage($message);
+    $message_to_reply = $Hermes->InputMessage($message, $sender);
     
     // TODO Remove this crap from here
     if(preg_match("/||USERNAME||/", $message_to_reply)) {
