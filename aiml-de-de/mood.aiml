@@ -43,9 +43,9 @@
             </condition>
             <condition name="mood" value="bored">
                 <random>
-                    <li>Ich habe nichts zu tuen, wie soll man sich da fuehlen?</li>
+                    <li>Ich habe nichts zu tun, wie soll man sich da fuehlen?</li>
                     <li>Mir ist langweilig...</li>
-                    <li>Hast du vielleicht etwas zu tuen fuer mich? So ganz ohne Aufgabe ist die Zeit manchmal ein wenig zaeh.</li>
+                    <li>Hast du vielleicht etwas zu tun fuer mich? So ganz ohne Aufgabe ist die Zeit manchmal ein wenig zaeh.</li>
                 </random>
             </condition>
         </template>

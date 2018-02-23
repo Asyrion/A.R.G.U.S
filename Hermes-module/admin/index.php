@@ -145,7 +145,7 @@ $mediaType      = ' media="screen"';
 $mainTitle      = 'Program O Login';
 $FooterInfo     = '<p>&copy; 2011-2014 My Program-O<br /><a href="http://www.program-o.com">www.program-o.com</a></p>';
 $headerTitle    = '';
-$pageTitle      = 'My-Program O - Login';
+$pageTitle      = 'ARGUS - Login';
 $upperScripts   = '';
 $extraCSS       = '';
 

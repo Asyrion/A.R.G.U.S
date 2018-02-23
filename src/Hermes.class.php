@@ -125,7 +125,6 @@ class Hermes {
             // the return value is not needed
             return FALSE;
         }
-        
     }
     
     /**

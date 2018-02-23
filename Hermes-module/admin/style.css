@@ -14,8 +14,10 @@ html, body {
 }
 
 body {
-    background: #9FC03A url(images/repeated_header2.jpg) repeat-x;
+    /* background: #9FC03A url(images/repeated_header2.jpg) repeat-x; */
+    background: #0b678e url(images/repeated_header2.jpg) repeat-x;
     color: #000000;
+    /* color: #FFFFFF; */
     margin: 0;
     padding: 0;
     width: 99.5%;
@@ -796,7 +798,8 @@ span.eightyPercent textarea.wide {
 
 #col2 {
     float: right;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
+    background-color: #000000; 
     width: 272px;
     margin-top: 20px;
     padding: 8px 0 8px 8px;
