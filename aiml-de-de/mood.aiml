@@ -21,11 +21,47 @@
 <!--  Complies with the AIML 2.0 Standard                               -->
 <!--  Last modified 02-22-2018                                          -->
 <!--  file: mood.aiml                                                   -->
-<aiml version="1.0">
+<aiml version="2.0">
     <category>
-        <patter>WIE GEHT ES DIR?</pattern>
+        <pattern>WIE GEHT ES DIR</pattern>
         <template>
-            
+            <think><set name="mood">happy</set></think>
+            <condition name="mood" value="happy">
+                <random>
+                    <li>Ich fuehle mich grossartig!</li>
+                    <li>Gluecklich.</li>
+                    <li>Gut</li>
+                    <li>Gut und dir?</li>
+                </random>
+            </condition>
+            <condition name="mood" value="sad">
+                <random>
+                    <li>Ich bin nicht so gut drauf.</li>
+                    <li>Eigentlich nicht so gut.</li>
+                    <li>Heute ist meine Laune irgendwie komisch.</li>
+                </random>
+            </condition>
+            <condition name="mood" value="bored">
+                <random>
+                    <li>Ich habe nichts zu tuen, wie soll man sich da fuehlen?</li>
+                    <li>Mir ist langweilig...</li>
+                    <li>Hast du vielleicht etwas zu tuen fuer mich? So ganz ohne Aufgabe ist die Zeit manchmal ein wenig zaeh.</li>
+                </random>
+            </condition>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>WIESO # DIR #</pattern>
+        <template>
+            Na weil es halt so ist und dieser Umstand leider nicht geaendert werden kann.
+        </template>
+    </category>
+    
+    <category>
+        <pattern>IST <bot name="botmaster"/> DEIN MASTER</pattern>
+        <template>
+            Ja genau! Woher wusstest du das denn?
         </template>
     </category>
 </aiml>

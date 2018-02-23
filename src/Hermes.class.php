@@ -25,6 +25,7 @@ include_once("lib.php");
  * @attribute bot_id        ->
  * @attribute url           ->
  * @attribute format        ->
+ * @attribute sender_id     ->
  *
  * @author  Roman Harms
  * @version V 0.0.1.3
@@ -62,6 +63,7 @@ class Hermes {
      */
     public function InputMessage($message, $sender_id) {
         
+        // Needed for creating a personel convo_id
         $this->sender_id = $sender_id;
         
         $message = str_replace(" ", "+", $message);
@@ -81,8 +83,8 @@ class Hermes {
     /**
      * Function CallAPI:
      *
-     * Usedto connect to the api of ARGUS and get
-     * the response fpr the users input.
+     * Used to connect to the api of ARGUS and get
+     * the response for the users input.
      *
      * @parameter $message the input message from the user
      * @variable  $curl Our cURL connection object
@@ -116,8 +118,11 @@ class Hermes {
     private function GetConvoID($json) {
         if(!$this->ReadConvoFile()) {
             $this->convo_id = $this->WriteConvoFile();
+            
+            // the return value is not needed
             return TRUE;
         }else{
+            // the return value is not needed
             return FALSE;
         }
         
