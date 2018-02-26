@@ -30,7 +30,8 @@ include_once("lib.php");
  * @author  Roman Harms
  * @version V 0.0.1.3
  */
-class Hermes {
+class Hermes 
+{
     private $name     = "A.R.G.U.S.";
     
     private $convo_id = "";

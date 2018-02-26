@@ -32,8 +32,9 @@ As of 2018-02-15 (V 0.0.1.3):
      
 ### Classes and functions
 A brief overview of planned functions and classes
-* [ ] Ra.class.php or Zeus.class.php for weather predictions via 
-     OpenWeathermaps-API
+* [ ] Zeus.class.php for weather predictions via 
+      OpenWeathermaps-API
 * [ ] Hermes.class.php just for connection with the other APIs and 
-     sending our constructed message
+      sending our constructed message
+* [ ] Pythia.class.php for testing database querys inside classes
 
