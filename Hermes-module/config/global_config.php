@@ -82,15 +82,15 @@ $time_zone_locale = 'Europe/Berlin'; // a full list can be found at http://uk.ph
 // DB settings
 //------------------------------------------------------------------------
 # remote server location
-$dbh     = 'localhost';
+$dbh     = 'rdbms.strato.de';
 # database port
 $dbPort  = '3306';
 # database name
-$dbn     = 'argus_messenger';
+$dbn     = 'DB3261345';
 # database username
-$dbu     = 'root';
+$dbu     = 'U3261345';
 # database password
-$dbp     = '';
+$dbp     = 'Dohvakijn1996';
 //Login credentials for the admin page
 $adm_dbu    = 'asyrion';
 $adm_dbp    = 'Dohvakijn1996';
@@ -171,7 +171,7 @@ define('ERROR_DEBUGGING', false);
 
 $save_state = 'session';
 $pattern = '[bot_default_aiml_pattern]';
-$error_response = 'No AIML category found. This is a Default Response.';
+$error_response = 'Hmm...das habe ich nicht verstanden.';
 $unknown_user = 'Seeker';
 
 //------------------------------------------------------------------------

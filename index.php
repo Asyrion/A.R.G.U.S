@@ -1,35 +1,44 @@
 <?php
-
-	//error_reporting(0);
-    $access_token = "EAAbDikW6jKYBAEn8u3LeWXUzbiOq4cYFRZBxCmZC79jvZB7wWTch0tZC5bV6LpsuzzT6DPJWKgbcfi0z81MSQQnBeU6gK1DecoIZBDPXD5RBVAU8C1u0ZBAtQvICSpZBW2oTeR5G95XbCMmn1pkOIzkRpnikwHdioFFZAQXhkpYZATJzcHTeW3I44";
-
+    //error_reporting(0);
+    
+    // Get the token from our config file
+    $access_token = file_get_contents("config/access_token.argus");
+    $access_token = trim($access_token);
+    
     $verify_token = "fb_argus_client";
 
     $hub_verify_token = null;
 
-	if(isset($_REQUEST["hub_challenge"])) {
-		$challenge = $_REQUEST["hub_challenge"];
-		$challenge = trim($challenge, "\\xef\\xbb\\xbf");
+    if(isset($_REQUEST["hub_challenge"])) {
+            $challenge = $_REQUEST["hub_challenge"];
+            $challenge = trim($challenge, "\\xef\\xbb\\xbf");
 
-		$hub_verify_token = $_REQUEST["hub_verify_token"];
-	}
+            $hub_verify_token = $_REQUEST["hub_verify_token"];
+    }
 
-	if ($hub_verify_token === $verify_token) {
-		$challenge = str_replace("\ufeff", "", $challenge); 
-		echo $challenge;
-	}
-	
-	$input = json_decode(file_get_contents("php://input"), true);
+    if ($hub_verify_token === $verify_token) {
+            $challenge = str_replace("\ufeff", "", $challenge); 
+            echo $challenge;
+    }
+    
+    $input = json_decode(file_get_contents("php://input"), true);
 
     $sender = $input["entry"][0]["messaging"][0]["sender"]["id"];
     $message = $input["entry"][0]["messaging"][0]["message"]["text"];
     
+    // Get our credentials for database connection
+    // from our connection file
+    $database_connections = file_get_contents("config/database_connection.argus");
+    $array_database       = explode("\n", $database_connections);
+    
     ### Variables for database connection
-    $host   = "rdbms.strato.de";
-    $user   = "U3261345";
-    $pass   = "Dohvakijn1996";
-    $dbname = "DB3261345";
-
+    $host   = $array_database[0];
+    $user   = $array_database[1];
+    $pass   = $array_database[2];
+    $dbname = $array_database[3];
+       
+    // echo $host."|".$user."|".$pass."|".$dbname."<br><br>";
+       
     if(mysqli_connect($host, $user, $pass)) {
         $datalink = mysqli_connect($host, $user, $pass);
     }else{
@@ -41,6 +50,7 @@
     }
     
     $message_to_reply = "";
+        
     /**
     * In der Datei Hermes.class.php wird das Verhalten von ARGUS
     * festgehalten. Hier trifft er seine Entscheidungen.
@@ -49,7 +59,7 @@
     * ARGUS auf, welche mithilfe von AIML
     * eine passende Antwort gibt.
     */
-    include_once("Hermes.class.php");
+    include_once("src/Hermes.class.php");
 
     $Hermes = new Hermes;
     
@@ -67,11 +77,15 @@
     }
     $message_to_reply = str_replace("ue", "ü", $message_to_reply);
     
+    $message_to_reply = $Hermes->Specialchars($message_to_reply);
+    
     echo $message_to_reply;
     
-    //API Url
-    $url = "https://graph.facebook.com/v2.6/me/messages?access_token=".$access_token;
-
+    //Get our API-Url from our config file
+    $url  = file_get_contents("config/facebook_api_url.argus");
+    $url  = trim($url);
+    $url .= $access_token;
+    
     //Initiate cURL.
     $ch = curl_init($url) or die("Dead...");
 

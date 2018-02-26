@@ -40,3 +40,7 @@
 02/08/2018 20:04:58 - PHP ERROR [Warning] -Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (C:\Users\User\Desktop\XAMPP\tmp) in Unknown on Line 0
 02/08/2018 20:05:03 - PHP ERROR [Warning] -Unknown: The session id is too long or contains illegal characters, valid characters are a-z, A-Z, 0-9 and '-,' in Unknown on Line 0
 02/08/2018 20:05:03 - PHP ERROR [Warning] -Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (C:\Users\User\Desktop\XAMPP\tmp) in Unknown on Line 0
+02/26/2018 12:17:52 - PHP ERROR [Warning] -Unknown: The session id is too long or contains illegal characters, valid characters are a-z, A-Z, 0-9 and '-,' in Unknown on Line 0
+02/26/2018 12:17:52 - PHP ERROR [Warning] -Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (2;/var/tmp) in Unknown on Line 0
+02/26/2018 12:17:53 - PHP ERROR [Warning] -Unknown: The session id is too long or contains illegal characters, valid characters are a-z, A-Z, 0-9 and '-,' in Unknown on Line 0
+02/26/2018 12:17:53 - PHP ERROR [Warning] -Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (2;/var/tmp) in Unknown on Line 0

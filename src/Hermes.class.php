@@ -31,7 +31,7 @@ include_once("lib.php");
  * @version V 0.0.1.3
  */
 class Hermes {
-    private $name          = "A.R.G.U.S.";
+    private $name     = "A.R.G.U.S.";
     
     private $convo_id = "";
     
@@ -43,13 +43,20 @@ class Hermes {
     private $bot_id = 1;
     
     // The URL for our api call
-    private $url = "https://www.asyrion.de/Program-O-master/chatbot/conversation_start.php";
+    private $url = "";
     
     // The format for our response
     private $format = "json";
     
     // The ID from the facebook user
     private $sender_id;
+    
+    // On constructing Hermes, get the api url 
+    // from our configuration file
+    function __construct() {
+        $this->url = file_get_contents("config/argus_url.argus");
+        $this->url = trim($this->url);
+    }
     
     /**
      * Function InputMessage:

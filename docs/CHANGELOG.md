@@ -20,4 +20,8 @@
 2018-02-22 - V 0.0.1.4
 - Changed AIML-Template to use aiml-standard 2.0
 - Let ARGUS use german special chars (ä,ö,ü,ß)
-- using first special tags from 2.0 standard (topic, that)
+- using first special tags from 2.0 standard (topic, that)##
+
+2018-02-26 - V.0.0.1.4
+- Removed all API-Keys and URLs from files
+- Added config-folder with config files for key and urls
