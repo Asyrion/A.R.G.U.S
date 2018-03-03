@@ -2,9 +2,9 @@
 
 ## List of next features to implement:
 As of 2018-02-12 (V 0.0.1.2):
-- [ ] Add new aiml files to ARGUS                                            -> still to come.
-- [ ] Complete greeting.aiml                                                 -> still to come.
-- [ ] Prepare Hermes-class for use with OpenWeather-API                      -> still to come.
+- [x] Add new aiml files to ARGUS                                           -> Done.
+- [ ] Complete greeting.aiml                                                -> still to come.
+- [x] Prepare Hermes-class for use with OpenWeather-API                     -> Done.
 - [x] Minor changes to database structure                                   -> Done.
 - [x] Minor performance raise                                               -> Done.
 
@@ -16,7 +16,7 @@ As of 2018-02-15 (V 0.0.1.3):
      in an text file with the user id provided by the facebook messenger
      to then read out that convo_id for further use and recognition 
 - [ ] Let ARGUS accept german special characters (ä,ö,ü,ß)                   -> still to come.
-- [x] Use AIML 2.0 for future AIML files (changed AIML-Template already)    -> Done.
+- [x] Use AIML 2.0 for future AIML files (changed AIML-Template already)     -> Done.
 - [ ] Remove information needed for database connection from Hermes to       -> still to come.
      write a file which contains those
 - [ ] Connect do ARGUS via SSH to change some settings                       -> still to come.
@@ -25,11 +25,14 @@ As of 2018-02-15 (V 0.0.1.3):
      to the user
 - [ ] Create a new convo_id whenever another user writes to ARGUS            -> still to come.
      (integrate a user detection sytem)
-- [ ] Part ARGUS in different classes with different tasks                   -> still to come.
+- [x] Part ARGUS in different classes with different tasks                   -> Done.
 - [ ] Let Hermes just be the message delivery system and all other tasks
      be handled by other classes
-- [ ] Write a handler for creating a logfile on encounting an error          -> still to come.
-     
+- [x] Write a handler for creating a logfile on encounting an error          -> Done.
+- [ ] Change the way ARGUS creates conversation_ids                          -> still to come.
+- [ ] Implement all the english aiml files for english conversations         -> still to come.
+
+
 ### Classes and functions
 A brief overview of planned functions and classes
 * [ ] Zeus.class.php for weather predictions via 
@@ -37,4 +40,6 @@ A brief overview of planned functions and classes
 * [ ] Hermes.class.php just for connection with the other APIs and 
       sending our constructed message
 * [ ] Pythia.class.php for testing database querys inside classes
-
+* [ ] Athene.class.php for testing the WolframAlpha-API and getting
+      results for asked questions.
+* [ ] Aiolos.class.php for querys regarding some of the Google-APIs

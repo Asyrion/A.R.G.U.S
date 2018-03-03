@@ -21,7 +21,7 @@
 <!--  Complies with the AIML 2.0 Standard                               -->
 <!--  Last modified 02-09-2018                                          -->
 <!--  file: greeting.aiml                                               -->
-<aiml version="1.0">
+<aiml version="2.0">
     <category>
         <pattern>HEY</pattern>
         <template>

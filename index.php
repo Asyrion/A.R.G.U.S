@@ -1,9 +1,15 @@
 <?php
     //error_reporting(0);
     
+    require_once("src/lib.php");
+    
     // Get the token from our config file
     $access_token = file_get_contents("config/access_token.argus");
     $access_token = trim($access_token);
+    
+    if(empty($access_token)) {
+        WriteToErrorLog("No Access token found!\n");
+    }
     
     $verify_token = "fb_argus_client";
 
@@ -26,29 +32,6 @@
     $sender = $input["entry"][0]["messaging"][0]["sender"]["id"];
     $message = $input["entry"][0]["messaging"][0]["message"]["text"];
     
-    // Get our credentials for database connection
-    // from our connection file
-    $database_connections = file_get_contents("config/database_connection.argus");
-    $array_database       = explode("\n", $database_connections);
-    
-    ### Variables for database connection
-    $host   = $array_database[0];
-    $user   = $array_database[1];
-    $pass   = $array_database[2];
-    $dbname = $array_database[3];
-       
-    // echo $host."|".$user."|".$pass."|".$dbname."<br><br>";
-       
-    if(mysqli_connect($host, $user, $pass)) {
-        $datalink = mysqli_connect($host, $user, $pass);
-    }else{
-        echo "Could not connect to MySQL-Database...";
-    }
-    
-    if(!mysqli_select_db($datalink, $dbname)) {
-        echo "Could not select database";
-    }
-    
     $message_to_reply = "";
         
     /**
@@ -63,21 +46,31 @@
 
     $Hermes = new Hermes;
     
+    // Testmessage to check if the functions work
+    // $message   = "Test";
+    // $sender_id = "73849459";
+    
     $message_to_reply = $Hermes->InputMessage($message, $sender);
-    
-    // TODO Remove this crap from here
+
+    // Use Pythia to get the username from our database
     if(preg_match("/||USERNAME||/", $message_to_reply)) {
-        $query  = "SELECT ";
-        $query .= $dbname.".users.user_name";
-        $query .= " FROM ".$dbname.".users";
-        $query .= " WHERE ".$dbname.".users.id = '95'";
-        $row = mysqli_fetch_array(mysqli_query($datalink, $query));
         
-        $message_to_reply = str_replace("||USERNAME||", $row["user_name"], $message_to_reply);
+        /**
+        * In der Datei Pythia.class.php werden Aktionen die
+        * die Datenbank betreffen ausgefuehrt.
+        *
+        * Dies schliesst Select-, Update- sowie Insert-Querys ein.
+        */
+        include_once("src/Pythia.class.php");
+        
+        $Pythia = new Pythia;
+        
+        // TODO implement the sender_id to get the 
+        // correct username.
+        $username = $Pythia->GetUsername();
+        
+        $message_to_reply = str_replace("||USERNAME||", $username, $message_to_reply);
     }
-    $message_to_reply = str_replace("ue", "ü", $message_to_reply);
-    
-    $message_to_reply = $Hermes->Specialchars($message_to_reply);
     
     echo $message_to_reply;
     
@@ -88,7 +81,8 @@
     
     //Initiate cURL.
     $ch = curl_init($url) or die("Dead...");
-
+    
+    // If cURL fails, output the error
     if(!$ch) {
         echo "<br>-->".curl_error($ch)."<--<br>";
     }

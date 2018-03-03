@@ -1,16 +1,19 @@
 <?php
-/* Stand: 06.02.2018 Nicht mehr gebraucht
-function lib_check_greeting($word) {
-    if(preg_match("/hallo/i", $word) || preg_match("/hallöi", $word) || preg_match("/hallii", $word) || preg_match("/hii", $word) || preg_match("/heyi", $word) || preg_match("/hoi", $word)) {
-        return TRUE;
-    }
+/**
+ * Function WriteToLog
+ *
+ * Used for writing to our logfile
+ * to keep track of errors and warnings.
+ *
+ * @parameter $content The content to be written in the logfile.
+ * @parameter $type    The type of the message (error, warning etc.)
+ * @parameter $log     The type of logfile the message should be written to.
+ */
+function WriteToErrorLog($content) {
+    $handle = fopen("ERRORLOG.txt", "a+");
+    fwrite($handle, "[".date("Y-m-d H:i:s")."] - ERROR - ".$content."\n");
+    fclose($handle);
+    
+    return TRUE;
 }
-
-function lib_check_time($word, $message) {
-        
-    if(preg_match("/späti", $message) || preg_match("/Uhrzeiti", $message) || preg_match("/Zeiti", $message) || preg_match("/sagt*Tachoi", $message)) {
-        return TRUE;
-    }
-}
-*/
 ?>

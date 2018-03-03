@@ -3,25 +3,6 @@
 $api_test = "WolframAlpha";
 
 /**
- * Erster Versuch einen Chatbot
- * einzubinden ueber ein normales 
- * Formular. -- deprecated
- */
-// include("chatbot.php");
-// 
-// // Chatter Mathatter
-// if($_SERVER["REQUEST_METHOD"] == "POST") {
-//     // echo $_POST["message"];
-//     if(count($_POST) > 0) {
-//         ExplodeWords($_POST["message"]);
-//     }
-//     
-//     if(isset($_POST["reload"])) {
-//         unset($_POST);
-//     }
-// }
-
-/**
  * OpenWeatherMap-API Calls
  *
  * Eine kleine Einfuehrung in die Moeglichkeiten

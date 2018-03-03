@@ -4,11 +4,11 @@ include_once("lib.php");
 /**
  * Hermes class
  *
- * Used for communicating with
- * the facebook messenger api
- * and sending and receiving messages to the user.
+ * Used for communicating with the facebook
+ * messenger api, sending and
+ * receiving messages to the user.
  *
- * PHP fragment of ARGUS:
+ * PHP fragment of ARGUS: Hermes
  *
  * @function InputMessage   ->
  * @function CallAPI        ->
@@ -71,7 +71,10 @@ class Hermes
      */
     public function InputMessage($message, $sender_id) {
         
-        // Needed for creating a personel convo_id
+        // Needed for creating a personal convo_id
+        // TODO use the sender and user id to create a
+        // convo_id file where the id is stored.
+        // PS: The user id doesn't change
         $this->sender_id = $sender_id;
         
         $message = str_replace(" ", "+", $message);
@@ -79,10 +82,17 @@ class Hermes
         $json = $this->CallAPI($message);
         
         // Get the convo id for further use
-        $this->GetConvoID($json);
+        // $this->GetConvoID($json);
         
         $result = $json->botsay;
         
+        // Transforming all specialchars from our output
+        $result = $this->Specialchars($result);
+    
+        // Check for actual Keywords
+        // TODO Remove this function from here and check for keywords
+        // in the index or another class
+        // TODO same needs to be done with the ProceedKeyword function.
         $result = $this->CheckKeywords($result);
         
         return $result;
@@ -112,28 +122,11 @@ class Hermes
 
         $json = json_decode($result);
         
-        $this->GetConvoID($json);
+        // $this->GetConvoID($json);
         
         return $json;
     }
     
-    /**
-     * Get the id of our conversation 
-     *
-     * Check if the convo_id is readable from a file
-     * ... if not write the convo_id file
-     */
-    private function GetConvoID($json) {
-        if(!$this->ReadConvoFile()) {
-            $this->convo_id = $this->WriteConvoFile();
-            
-            // the return value is not needed
-            return TRUE;
-        }else{
-            // the return value is not needed
-            return FALSE;
-        }
-    }
     
     /**
      * Function CheckKeywords
@@ -179,43 +172,24 @@ class Hermes
     }
     
     /**
-     * Function ReadConvoFile
+     * Function Specialchars
      *
-     * Read the convo file to check if its filled.
-     * 
-     * @return boolean If our convo_id is readable or not
+     * Transform our wrong specialchars from 
+     * the output to real german specialchars.
+     *
+     * @return $message_to_transform The tranformed message with specialchars
      */
-    private function ReadConvoFile() {
-        $content = file_get_contents("convo_ids/".$this->convo_id.".argus");
-        $contents = explode("||", $content);
+    private function Specialchars($message_to_transform) {
+        $message_to_transform = str_replace("ue", "ü", $message_to_transform);
+        $message_to_transform = str_replace("oe", "ö", $message_to_transform);
+        $message_to_transform = str_replace("ae", "ä", $message_to_transform);
+        $message_to_transform = str_replace("ss", "ß ", $message_to_transform);
         
-        if($this->convo_id == $contents[1]) {
-            return TRUE;
-        }else{
-            return FALSE;
-        }
-    }
-    
-    /**
-     * Function WriteConvoFile
-     *
-     * Write the file that contains our convo_id
-     * and fill the attribute of our class.
-     *
-     * @return $convo_id Our convo_id for the converstion between user and ARGUS
-     */
-    private function WriteConvoFile() {
-        $convo_id = md5("a");
+        $message_to_transform = str_replace("Ue", "Ü", $message_to_transform);
+        $message_to_transform = str_replace("Oe", "Ö", $message_to_transform);
+        $message_to_transform = str_replace("Ae", "Ä", $message_to_transform);
         
-        $this->convo_id = substr($convo_id, 0, -7);
-        
-        $handle = fopen("convo_ids/".$this->convo_id.".argus", "a+");
-        
-        fwrite($handle, $this->sender_id."||".$this->convo_id);
-        
-        fclose($handle);
-        
-        return $this->convo_id;
+        return $message_to_transform;
     }
 }
 ?>
