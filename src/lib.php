@@ -9,18 +9,21 @@
  * @param $type    The type of the message (error, warning etc.)
  * @param $log     The type of logfile the message should be written to.
  */
-function WriteToErrorLog($type, $content) {
+function WriteToLog($type, $content) {
     switch($type) {
         case "ERROR":
-            $handle = fopen("ERRORLOG.txt", "a+");
+            $handle = fopen("logs/errorlog.log", "a+");
         break;
         case "LOG":
-            $handle = fopen("LOG.txt", "a+");
+            $handle = fopen("logs/successlog.log", "a+");
             $type   = "INFO"; 
+        break;
+        case "MESSAGE":
+            $handle = fopen("logs/messagelog.log", "a+");
         break;
     }
     
-    fwrite($handle, "[".date("Y-m-d H:i:s")."] - ".$type." - ".$content."\n");
+    fwrite($handle, "[".date("Y-m-d H:i:s")."] - ".$type." - ".$content);
     fclose($handle);
     
     return TRUE;
@@ -36,14 +39,14 @@ function WriteToErrorLog($type, $content) {
  * @param $url      The url our request is aimed at
  * @param $data     The data to send via cURL.
  */
-function FacebookcURL($url, $data) {
-        $ch = curl_init($url) or die(WriteToErrorLog("ERROR", "Could not initiate cURL.\n"));
+function FacebookcURL($url, $data, $event) {
+        $ch = curl_init($url) or die(WriteToLog("ERROR", "Could not initiate cURL.\n"));
         
         // If cURL fails, output the error
         if(!$ch) {
-            WriteToErrorLog("ERROR", curl_error($ch)."\n");
+            WriteToLog("ERROR", curl_error($ch)."\n");
         }else{
-            WriteToErrorLog("LOG", "Connected successfully!\n");
+            WriteToLog("LOG", "Event: ".$event." - Connected successfully!\n");
         }
         
         $jsonData = $data;
@@ -63,7 +66,7 @@ function FacebookcURL($url, $data) {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 
         //Execute the request
-        $result = curl_exec($ch) or die(WriteToErrorLog("ERROR", "Could not execute your request!.\n"));
+        $result = curl_exec($ch) or die(WriteToLog("ERROR", "Could not execute your request!.\n"));
         
         return $result;
 }
