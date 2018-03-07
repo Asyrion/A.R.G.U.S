@@ -8,7 +8,7 @@
     $access_token = trim($access_token);
     
     if(empty($access_token)) {
-        WriteToErrorLog("No Access token found!\n");
+        WriteToErrorLog("ERROR", "No Access token found!\n");
     }
     
     $verify_token = "fb_argus_client";
@@ -31,6 +31,39 @@
 
     $sender = $input["entry"][0]["messaging"][0]["sender"]["id"];
     $message = $input["entry"][0]["messaging"][0]["message"]["text"];
+    
+    // If sender and message are not empty
+    // let the user see, that we are typing
+    if(!empty($sender) && !empty($message)) {
+        WriteToErrorLog("LOG", "Trying to show some action.\n");
+
+        //Get our API-Url from our config file
+        $url  = file_get_contents("config/facebook_api_url.argus");
+        $url  = trim($url);
+        $url .= $access_token;
+        
+        // The JSON data for our typing_on-event
+        $jsonData = '{
+            "recipient":{
+                "id":"'.$sender.'"
+            },
+            "sender_action":"typing_on"
+        }';
+        
+        // Let the user see a typing symbol
+        FacebookcURL($url, $jsonData);
+        
+        // The JSON data for our mark_seen-event
+        $jsonData = '{
+            "recipient":{
+                "id":"'.$sender.'"
+            },
+            "sender_action":"mark_seen"
+        }';
+        
+        // Mark the previous message as seen
+        FacebookcURL($url, $jsonData);
+    }
     
     $message_to_reply = "";
         
@@ -80,11 +113,11 @@
     $url .= $access_token;
     
     //Initiate cURL.
-    $ch = curl_init($url) or die("Dead...");
+    $ch = curl_init($url) or die(WriteToErrorLog("ERROR", "cURL could not be initiated!\n"));
     
     // If cURL fails, output the error
     if(!$ch) {
-        echo "<br>-->".curl_error($ch)."<--<br>";
+        WriteToErrorLog("ERROR", curl_error($ch)."\n");
     }
     
     //The JSON data.
@@ -109,10 +142,9 @@
     //Set the content type to application/json
     curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
     //curl_setopt($ch, CURLOPT_HTTPHEADER, array(‘Content-Type: application/x-www-form-urlencoded’));
-
+    
     //Execute the request
     if(!empty($input["entry"][0]["messaging"][0]["message"])){
         $result = curl_exec($ch);
     }
-    
 ?>

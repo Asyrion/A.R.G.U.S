@@ -31,6 +31,9 @@ As of 2018-02-15 (V 0.0.1.3):
 - [x] Write a handler for creating a logfile on encounting an error          -> Done.
 - [ ] Change the way ARGUS creates conversation_ids                          -> still to come.
 - [ ] Implement all the english aiml files for english conversations         -> still to come.
+- [ ] Create multiple logfiles for logging different things (eg.: Messages
+      and/or connections and so forth)                                       -> still to come.
+- [ ] Put the whole cURL thing into a different class to slim the index.php  -> Done (outsourced to lib.php).
 
 
 ### Classes and functions

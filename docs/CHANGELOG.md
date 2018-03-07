@@ -38,3 +38,11 @@
 - Removed public function Specialchars from index.php
   to be called inside Hermes
 - Removed database connection from index.php
+
+2018-03-05 - V 0.0.1.4
+- Tried to solve specialchars problem with utf8_encode and decode  -> Did not work.
+
+2018-03-07 - V 0.0.1.4
+- Added typing event for ARGUS before the message is send
+- Added mark_seen event for ARGUS for previous messages
+- Outsourced the cURL calls to independent function for FacebookcURL calls

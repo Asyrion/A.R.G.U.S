@@ -34,7 +34,7 @@ class Hermes
 {
     private $name     = "A.R.G.U.S.";
     
-    private $convo_id = "";
+    private $convo_id = "g767g90d9c8g76s6ss";
     
     ### Variables for use with the api
     // Our send message
@@ -65,9 +65,9 @@ class Hermes
      * Get the message input from the user
      * remove the spaces and proceed it to our api call.
      *
-     * @parameter $message The input message from the user
-     * @variable  $json    The returned json object of our api call
-     * @return    $result  The response from ARGUS to the user
+     * @var    $json    The returned json object of our api call
+     * @param  $message The input message from the user
+     * @return $result  The response from ARGUS to the user
      */
     public function InputMessage($message, $sender_id) {
         
@@ -79,6 +79,8 @@ class Hermes
         
         $message = str_replace(" ", "+", $message);
         
+        $message = $this->ReverseSpecialchars($message);
+        
         $json = $this->CallAPI($message);
         
         // Get the convo id for further use
@@ -87,8 +89,10 @@ class Hermes
         $result = $json->botsay;
         
         // Transforming all specialchars from our output
-        $result = $this->Specialchars($result);
-    
+        // and encode that sh** in UTF-8
+        $result   = $this->Specialchars($result);
+        $result   = utf8_encode($result);
+        
         // Check for actual Keywords
         // TODO Remove this function from here and check for keywords
         // in the index or another class
@@ -104,9 +108,9 @@ class Hermes
      * Used to connect to the api of ARGUS and get
      * the response for the users input.
      *
-     * @parameter $message the input message from the user
-     * @variable  $curl Our cURL connection object
-     * @return    $json The result of our api call query
+     * @var    $curl Our cURL connection object
+     * @param  $message the input message from the user
+     * @return $json The result of our api call query
      */
     private function CallAPI($message) {
         // This is our url for accessing the api
@@ -133,9 +137,9 @@ class Hermes
      *
      * Used to chck for possible keywords and then proceed these keywords.
      *
-     * @parameter $message The input message from the user
+     * @param  $message The input message from the user
      *
-     * @return    $output Our response from ARGUS
+     * @return $output Our response from ARGUS
      */
     private function CheckKeywords($message) {
         
@@ -155,9 +159,9 @@ class Hermes
      * Used for proceeding all sorts of keywords and construct
      * answers or get answers via the api to ARGUS.
      *
-     * @parameter $message Our message from the user
+     * @param   $message Our message from the user
      *
-     * @return    $message Our output message for ARGUS
+     * @return  $message Our output message for ARGUS
      */
     private function ProceedKeyword($message) {
         if(preg_match("/||/",$message)) {
@@ -177,17 +181,48 @@ class Hermes
      * Transform our wrong specialchars from 
      * the output to real german specialchars.
      *
+     * List of german specialchars:
+     * ü - 129
+     * Ü - 154
+     * ö - 148
+     * Ö - 153
+     * ä - 132
+     * Ä - 142
+     * ß - 225
+     *
      * @return $message_to_transform The tranformed message with specialchars
      */
     private function Specialchars($message_to_transform) {
-        $message_to_transform = str_replace("ue", "ü", $message_to_transform);
-        $message_to_transform = str_replace("oe", "ö", $message_to_transform);
-        $message_to_transform = str_replace("ae", "ä", $message_to_transform);
-        $message_to_transform = str_replace("ss", "ß ", $message_to_transform);
+        $message_to_transform = str_replace("ue", chr(129), $message_to_transform);
+        $message_to_transform = str_replace("oe", chr(148), $message_to_transform);
+        $message_to_transform = str_replace("ae", chr(132), $message_to_transform);
+        $message_to_transform = str_replace("ss", chr(225), $message_to_transform);
         
-        $message_to_transform = str_replace("Ue", "Ü", $message_to_transform);
-        $message_to_transform = str_replace("Oe", "Ö", $message_to_transform);
-        $message_to_transform = str_replace("Ae", "Ä", $message_to_transform);
+        $message_to_transform = str_replace("Ue", chr(154), $message_to_transform);
+        $message_to_transform = str_replace("Oe", chr(153), $message_to_transform);
+        $message_to_transform = str_replace("Ae", chr(142), $message_to_transform);
+        
+        return $message_to_transform;
+    }
+    
+        
+    /**
+     * Function Specialchars
+     *
+     * Transform our wrong specialchars from 
+     * the output to real german specialchars.
+     *
+     * @return $message_to_transform The tranformed message with specialchars
+     */
+    private function ReverseSpecialchars($message_to_transform) {
+        $message_to_transform = str_replace(chr(129), "ue", $message_to_transform);
+        $message_to_transform = str_replace(chr(148), "oe", $message_to_transform);
+        $message_to_transform = str_replace(chr(132), "ae", $message_to_transform);
+        $message_to_transform = str_replace(chr(225), "ss ", $message_to_transform);
+        
+        $message_to_transform = str_replace(chr(154), "Ue", $message_to_transform);
+        $message_to_transform = str_replace(chr(153), "Oe", $message_to_transform);
+        $message_to_transform = str_replace(chr(142), "Ae", $message_to_transform);
         
         return $message_to_transform;
     }
