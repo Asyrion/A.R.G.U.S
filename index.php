@@ -1,4 +1,8 @@
 <?php
+    // CAUTION keywords are defined by || in the answer of ARGUS
+    
+    header('Content-Type: text/html; charset=utf-8');
+    
     //error_reporting(0);
     
     require_once("src/lib.php");
@@ -32,14 +36,25 @@
     $sender = $input["entry"][0]["messaging"][0]["sender"]["id"];
     $message = $input["entry"][0]["messaging"][0]["message"]["text"];
     
-    // Keine Nachrichten von ARGUS selbst durchlassen
+    // No messages from ARGUS itself, just from external users
     if($sender != "199549497309203") {
+        /**
+        * Pythia handles database requests.
+        *
+        * This includes Select-, Update- and Insert-Querys
+        */
+        include_once("src/Pythia.class.php");
+        
+        $Pythia = new Pythia;
+        
+        $username = $Pythia->GetUsername($sender);
+        
         if(!empty($message)) {
-            WriteToLog("MESSAGE", $sender.": ".$message."\n");
+            WriteToLog("MESSAGE", $username." (".$sender."): ".$message."\n");
         }
         
         // If sender and message are not empty
-        // let the user see, that we are typing
+        // let the user see that ARGUS is typing
         if(!empty($sender) && !empty($message)) {
             WriteToLog("LOG", "Trying to show some action.\n");
 
@@ -83,38 +98,23 @@
         */
         include_once("src/Hermes.class.php");
 
-        $Hermes = new Hermes;
+        $Hermes = new Hermes($sender) or die(WriteToLog("ERROR", "Hermes could not be constructed!\n"));
         
         // Testmessage to check if the functions work
         // $message   = "Test";
         // $sender_id = "73849459";
         
         $message_to_reply = $Hermes->InputMessage($message, $sender);
-
-        // Use Pythia to get the username from our database
-        if(preg_match("/||USERNAME||/", $message_to_reply)) {
-            
-            /**
-            * In der Datei Pythia.class.php werden Aktionen die
-            * die Datenbank betreffen ausgefuehrt.
-            *
-            * Dies schliesst Select-, Update- sowie Insert-Querys ein.
-            */
-            include_once("src/Pythia.class.php");
-            
-            $Pythia = new Pythia;
-            
-            // TODO implement the sender_id to get the 
-            // correct username.
-            $username = $Pythia->GetUsername();
-            
-            $message_to_reply = str_replace("||USERNAME||", $username, $message_to_reply);
-        }
-        
-        // echo $message_to_reply;
         
         if(!empty($message_to_reply)) {
             WriteToLog("MESSAGE", "ARGUS: ".$message_to_reply."\n");
+        }
+        
+        // TODO Let's check for the Keyword ||DATABASE||
+        if(strpos($message_to_reply, "||DATABASE||") !== FALSE) {
+            $Pythia->Request($message_to_reply) or WriteToLog("ERROR", "Pythia: Request could not be proceeded!\n");
+        }else{
+            WriteToLog("ERROR", "Pythia: No keyword found.\n");
         }
         
         //Get our API-Url from our config file

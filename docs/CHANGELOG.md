@@ -40,9 +40,18 @@
 - Removed database connection from index.php
 
 2018-03-05 - V 0.0.1.4
-- Tried to solve specialchars problem with utf8_encode and decode  -> Did not work.
+- Tried to solve specialchars problem with utf8_encode and decode
 
 2018-03-07 - V 0.0.1.4
 - Added typing event for ARGUS before the message is send
 - Added mark_seen event for ARGUS for previous messages
 - Outsourced the cURL calls to independent function for FacebookcURL calls
+
+2018-03-08 - V 0.0.1.4
+- Added several different logfiles for logging messages, errors and sucess
+- Changed database to save facebook sender_id to existing user
+- Create a file where the convo_id is stored via the sender_id we get from
+  the facebook-messenger-api
+- Added GetUsername() to Pythia for getting the username via the sender_id
+- Finally solved the problems with german specialchars -> the file was encoded in iso-8859-1 
+  and not in utf-8. After changing this encoding all specialchars were displayed correctly.

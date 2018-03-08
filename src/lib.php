@@ -1,4 +1,6 @@
 <?php
+// CAUTION keywords are defined by || in the answer of ARGUS
+
 /**
  * Function WriteToLog
  *

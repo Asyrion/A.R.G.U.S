@@ -33,7 +33,8 @@ As of 2018-02-15 (V 0.0.1.3):
 - [ ] Implement all the english aiml files for english conversations         -> still to come.
 - [ ] Create multiple logfiles for logging different things (eg.: Messages
       and/or connections and so forth)                                       -> still to come.
-- [ ] Put the whole cURL thing into a different class to slim the index.php  -> Done (outsourced to lib.php).
+- [x] Put the whole cURL thing into a different class to slim the index.php  -> Done (outsourced to lib.php).
+- [ ] Use proper error_reporting instead of self written dirty log classes   -> still to come.
 
 
 ### Classes and functions
