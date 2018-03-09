@@ -23,6 +23,9 @@ function WriteToLog($type, $content) {
         case "MESSAGE":
             $handle = fopen("logs/messagelog.log", "a+");
         break;
+        case "PYTHIA":
+            $handle = fopen("logs/pythialog.log", "a+");
+        break;
     }
     
     fwrite($handle, "[".date("Y-m-d H:i:s")."] - ".$type." - ".$content);

@@ -47,6 +47,22 @@ class Pythia
     // The object which stores our
     private $datalink;
     
+    //--------------
+    ### Table names
+    private $tbl_aiml               = $this->dbname.".aiml";
+    private $tbl_aiml_userdefined   = $this->dbname.".aiml_userdefined";
+    private $tbl_botpersonality     = $this->dbname.".botpersonality";
+    private $tbl_bots               = $this->dbname.".bots";
+    private $tbl_client_properties  = $this->dbname.".client_properties";
+    private $tbl_converstation_log  = $this->dbname.".converstation_log";
+    private $tbl_myprogrammo        = $this->dbname.".myprogrammo";
+    private $tbl_spellcheck         = $this->dbname.".spellcheck";
+    private $tbl_srai_lookup        = $this->dbname.".srai_lookup";
+    private $tbl_undefined_defaults = $this->dbname.".undefined_defaults";
+    private $tbl_unknown_inputs     = $this->dbname.".unknown_inputs";
+    private $tbl_users              = $this->dbname.".users";
+    private $tbl_wordcensor         = $this->dbname.".wordcensor";
+    
     /**
      * Function __construct
      *
@@ -76,9 +92,9 @@ class Pythia
     public function GetUsername($sender_id) 
     {
         $query  = "SELECT ";
-        $query .= $this->dbname.".users.user_name";
-        $query .= " FROM ".$this->dbname.".users";
-        $query .= " WHERE ".$this->dbname.".users.sender_id = '".$sender_id."' ";
+        $query .= $tbl_users.".user_name";
+        $query .= " FROM ".$tbl_users;
+        $query .= " WHERE ".$tbl_users.".sender_id = '".$sender_id."' ";
         $row = mysqli_fetch_array(mysqli_query($this->datalink, $query)) or WriteToLog("ERROR", "Query could not be executed: ".$query."\n");
         
         // Return our complete result set
@@ -89,16 +105,71 @@ class Pythia
      *
      *
      *
+     *
+     *
+     */
+//     private function SetName($name) {
+//        $query  = "UPDATE "; 
+//        $query .= $this->dbname.".botpersonality"
+//        $query .= 
+//        $query .= 
+//     }
+    
+    /**
+     *
+     *
+     *
      */
     public function Request($message) {
         $tmp = explode("||", $message);
         
-        switch(trim(strtoupper($tmp[2]))) {
+        // The value of this will be "SET" or "GET"
+        $get_set = $tmp[2];
+        
+        switch(trim(strtoupper($tmp[3]))) {
             case "NAME":
-                WriteToLog("LOG", "Pythia: Request for name found.\n");
+                WriteToLog("PYTHIA", "Request for name found.\n");
+                
+//                 if($get_set == "SET") {
+//                     $this->SetName($tmp[4]);
+//                 }
+                
+            break;
+            case "GENDER":
+                WriteToLog("PYTHIA", "Request for gender found.\n");
+            break;
+            case "BOTMASTER":
+                WriteToLog("PYTHIA", "Request for botmaster found.\n");
+            break;
+            case "VERSION":
+                WriteToLog("PYTHIA", "Request for version found.\n");
+            break;
+            case "AGE":
+                WriteToLog("PYTHIA", "Request for age found.\n");
+            break;
+            case "WEBSITE":
+                WriteToLog("PYTHIA", "Request for website found.\n");
+            break;
+            case "birthplace":
+                WriteToLog("PYTHIA", "Request for birthplace found.\n");
+            break;
+            case "SIZE":
+                WriteToLog("PYTHIA", "Request for size found.\n");
+            break;
+            case "BUILD":
+                WriteToLog("PYTHIA", "Request for build found.\n");
+            break;
+            case "FOOTBALLTEAM":
+                WriteToLog("PYTHIA", "Request for footballteam found.\n");
+            break;
+            case "FAVORITESPORT":
+                WriteToLog("PYTHIA", "Request for favoritesport found.\n");
+            break;
+            case "FAVORITEACTOR":
+                WriteToLog("PYTHIA", "Request for favoriteactor found.\n");
             break;
             default:
-                WriteToLog("ERROR", "Pythia: Request could not be executed: ".$tmp[1]."-".$tmp[2]."-".$tmp[3]."\n");
+                WriteToLog("ERROR", "Request could not be executed: ".$tmp[2]."-".$tmp[3]."-".$tmp[4]."\n");
             break;
         }
         return TRUE;

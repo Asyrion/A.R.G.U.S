@@ -114,7 +114,7 @@
         if(strpos($message_to_reply, "||DATABASE||") !== FALSE) {
             $Pythia->Request($message_to_reply) or WriteToLog("ERROR", "Pythia: Request could not be proceeded!\n");
         }else{
-            WriteToLog("ERROR", "Pythia: No keyword found.\n");
+            WriteToLog("PYTHIA", "Pythia: No keyword found.\n");
         }
         
         //Get our API-Url from our config file

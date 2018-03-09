@@ -55,3 +55,6 @@
 - Added GetUsername() to Pythia for getting the username via the sender_id
 - Finally solved the problems with german specialchars -> the file was encoded in iso-8859-1 
   and not in utf-8. After changing this encoding all specialchars were displayed correctly.
+
+2018-03-09 - V 0.0.1.4
+- 
