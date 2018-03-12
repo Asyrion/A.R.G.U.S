@@ -114,7 +114,7 @@
         
         // TODO Let's check for the Keyword ||DATABASE||
         if(strpos($message_to_reply, "||DATABASE||") !== FALSE) {
-            $Pythia->Request($message_to_reply) or WriteToLog("ERROR", "Pythia: Request could not be proceeded!\n");
+            $message_to_reply = $Pythia->Request($message_to_reply) or WriteToLog("ERROR", "Pythia: Request could not be proceeded!\n");
         }else{
             WriteToLog("PYTHIA", "Pythia: No keyword found.\n");
         }

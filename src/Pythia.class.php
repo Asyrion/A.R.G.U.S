@@ -80,20 +80,20 @@ class Pythia
         $this->pass   = $array_database[2];
         $this->dbname = $array_database[3];
 
-        // Define tables
-        $this->tbl_aiml = $this->dbname.".aiml";
-        $this->tbl_aiml = $this->dbname.".aiml_userdefined";
-        $this->tbl_aiml = $this->dbname.".botpersonality";
-        $this->tbl_aiml = $this->dbname.".bots";
-        $this->tbl_aiml = $this->dbname.".client_properties";
-        $this->tbl_aiml = $this->dbname.".converstation_log";
-        $this->tbl_aiml = $this->dbname.".myprogrammo";
-        $this->tbl_aiml = $this->dbname.".spellcheck";
-        $this->tbl_aiml = $this->dbname.".srai_lookup";
-        $this->tbl_aiml = $this->dbname.".undefined_defaults";
-        $this->tbl_aiml = $this->dbname.".unknown_inputs";
-        $this->tbl_aiml = $this->dbname.".wordcensor";
-        $this->tbl_users = $this->dbname.".users";
+        // Define tables for further use
+        $this->tbl_aiml                 = $this->dbname.".aiml";
+        $this->tbl_aiml_userdefined     = $this->dbname.".aiml_userdefined";
+        $this->tbl_botpersonality       = $this->dbname.".botpersonality";
+        $this->tbl_bots                 = $this->dbname.".bots";
+        $this->tbl_client_properties    = $this->dbname.".client_properties";
+        $this->tbl_converstation_log    = $this->dbname.".converstation_log";
+        $this->tbl_myprogrammo          = $this->dbname.".myprogrammo";
+        $this->tbl_spellcheck           = $this->dbname.".spellcheck";
+        $this->tbl_srai_lookup          = $this->dbname.".srai_lookup";
+        $this->tbl_undefined_defaults   = $this->dbname.".undefined_defaults";
+        $this->tbl_unknown_inputs       = $this->dbname.".unknown_inputs";
+        $this->tbl_wordcensor           = $this->dbname.".wordcensor";
+        $this->tbl_users                = $this->dbname.".users";
         
         $this->datalink = mysqli_connect($this->host, $this->user, $this->pass) or die("Connection not possible!");
         mysqli_select_db($this->datalink, $this->dbname) OR die("Could not select db!");
@@ -111,9 +111,9 @@ class Pythia
         // WriteToLog("LOG", "Tabelle: ".$this->tbl_users."\n");
         
         $query  = "SELECT ";
-        $query .= $this->dbname.".users.user_name";
-        $query .= " FROM ".$this->dbname.".users";
-        $query .= " WHERE ".$this->dbname.".users.sender_id = '".$sender_id."' ";
+        $query .= $this->tbl_users.".user_name";
+        $query .= " FROM ".$this->tbl_users;
+        $query .= " WHERE ".$this->tbl_users.".sender_id = '".$sender_id."' ";
         $row = mysqli_fetch_array(mysqli_query($this->datalink, $query)) or WriteToLog("ERROR", "Query could not be executed: ".$query."\n");
         
         // Return our complete result set
@@ -127,12 +127,22 @@ class Pythia
      *
      *
      */
-//     private function SetProperty($property, $value) {
-//        $query  = "UPDATE "; 
-//        $query .= $this->dbname.".botpersonality"
-//        $query .= 
-//        $query .= 
-//     }
+    private function SetProperty($property, $value) {
+        $query  = "UPDATE ".$this->tbl_botpersonality." SET "; 
+        $query .= $this->tbl_botpersonality.".value = '".$value."'";
+        $query .= " WHERE ".$this->tbl_botpersonality.".bot_id = '1' "; // id of ARGUS
+        $query .= " and ".$this->tbl_botpersonality.".name = '".$property."' "; // id of ARGUS
+        
+        if(mysqli_query($this->datalink, $query)) {
+            WriteToLog("LOG", "Property ".$property." updated successfully!\n");
+            
+            return "Attribut ".strtoupper($property)." erfolgreich geändert!";
+        }else{
+            WriteToLog("ERROR", "Could not update property. Query: ".$query."\n");
+            
+            return "Konnte Attribut ".strtoupper($property)." nicht ändern.";
+        }
+    }
     
     /**
      *
@@ -145,9 +155,13 @@ class Pythia
         // The value of this will be "SET" or "GET"
         $get_set = $tmp[2];
         
+        $answer = "";
+        
         switch(trim(strtoupper($tmp[3]))) {
             case "NAME":
                 WriteToLog("PYTHIA", "Request for name found.\n");
+                
+                $answer = $this->SetProperty("name", $tmp[4]);
             break;
             case "GENDER":
                 WriteToLog("PYTHIA", "Request for gender found.\n");
@@ -186,7 +200,7 @@ class Pythia
                 WriteToLog("ERROR", "Request could not be executed: ".$tmp[2]."-".$tmp[3]."-".$tmp[4]."\n");
             break;
         }
-        return TRUE;
+        return $answer;
     }
 }
 ?>
