@@ -51,6 +51,8 @@
         
         if(!empty($message)) {
             WriteToLog("MESSAGE", $username." (".$sender."): ".$message."\n");
+        }else{
+            WriteToLog("ERROR", "No message found...\n");
         }
         
         // If sender and message are not empty

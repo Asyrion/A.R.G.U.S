@@ -49,19 +49,19 @@ class Pythia
     
     //--------------
     ### Table names
-    private $tbl_aiml               = $this->dbname.".aiml";
-    private $tbl_aiml_userdefined   = $this->dbname.".aiml_userdefined";
-    private $tbl_botpersonality     = $this->dbname.".botpersonality";
-    private $tbl_bots               = $this->dbname.".bots";
-    private $tbl_client_properties  = $this->dbname.".client_properties";
-    private $tbl_converstation_log  = $this->dbname.".converstation_log";
-    private $tbl_myprogrammo        = $this->dbname.".myprogrammo";
-    private $tbl_spellcheck         = $this->dbname.".spellcheck";
-    private $tbl_srai_lookup        = $this->dbname.".srai_lookup";
-    private $tbl_undefined_defaults = $this->dbname.".undefined_defaults";
-    private $tbl_unknown_inputs     = $this->dbname.".unknown_inputs";
-    private $tbl_users              = $this->dbname.".users";
-    private $tbl_wordcensor         = $this->dbname.".wordcensor";
+    public $tbl_aiml               = $dbname.".aiml";
+    public $tbl_aiml_userdefined   = $dbname.".aiml_userdefined";
+    public $tbl_botpersonality     = $dbname.".botpersonality";
+    public $tbl_bots               = $dbname.".bots";
+    public $tbl_client_properties  = $dbname.".client_properties";
+    public $tbl_converstation_log  = $dbname.".converstation_log";
+    public $tbl_myprogrammo        = $dbname.".myprogrammo";
+    public $tbl_spellcheck         = $dbname.".spellcheck";
+    public $tbl_srai_lookup        = $dbname.".srai_lookup";
+    public $tbl_undefined_defaults = $dbname.".undefined_defaults";
+    public $tbl_unknown_inputs     = $dbname.".unknown_inputs";
+    public $tbl_users              = $dbname.".users";
+    public $tbl_wordcensor         = $dbname.".wordcensor";
     
     /**
      * Function __construct
@@ -91,10 +91,13 @@ class Pythia
      */
     public function GetUsername($sender_id) 
     {
+        // Testausgabe in die Logs:
+        WriteToLog("LOG", "Tabelle: ".$this->tbl_users."\n");
+        
         $query  = "SELECT ";
-        $query .= $tbl_users.".user_name";
-        $query .= " FROM ".$tbl_users;
-        $query .= " WHERE ".$tbl_users.".sender_id = '".$sender_id."' ";
+        $query .= $this->dbname.".users.user_name";
+        $query .= " FROM ".$this->dbname.".users";
+        $query .= " WHERE ".$this->dbname.".users.sender_id = '".$sender_id."' ";
         $row = mysqli_fetch_array(mysqli_query($this->datalink, $query)) or WriteToLog("ERROR", "Query could not be executed: ".$query."\n");
         
         // Return our complete result set
@@ -108,11 +111,11 @@ class Pythia
      *
      *
      */
-//     private function SetName($name) {
-//        $query  = "UPDATE "; 
-//        $query .= $this->dbname.".botpersonality"
-//        $query .= 
-//        $query .= 
+//     private function SetProperty($property, $value) {
+// //        $query  = "UPDATE "; 
+// //        $query .= $this->dbname.".botpersonality"
+// //        $query .= 
+// //        $query .= 
 //     }
     
     /**
@@ -129,11 +132,6 @@ class Pythia
         switch(trim(strtoupper($tmp[3]))) {
             case "NAME":
                 WriteToLog("PYTHIA", "Request for name found.\n");
-                
-//                 if($get_set == "SET") {
-//                     $this->SetName($tmp[4]);
-//                 }
-                
             break;
             case "GENDER":
                 WriteToLog("PYTHIA", "Request for gender found.\n");
@@ -150,7 +148,7 @@ class Pythia
             case "WEBSITE":
                 WriteToLog("PYTHIA", "Request for website found.\n");
             break;
-            case "birthplace":
+            case "BIRTHPLACE":
                 WriteToLog("PYTHIA", "Request for birthplace found.\n");
             break;
             case "SIZE":
