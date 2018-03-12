@@ -49,19 +49,20 @@ class Pythia
     
     //--------------
     ### Table names
-    public $tbl_aiml               = $dbname.".aiml";
-    public $tbl_aiml_userdefined   = $dbname.".aiml_userdefined";
-    public $tbl_botpersonality     = $dbname.".botpersonality";
-    public $tbl_bots               = $dbname.".bots";
-    public $tbl_client_properties  = $dbname.".client_properties";
-    public $tbl_converstation_log  = $dbname.".converstation_log";
-    public $tbl_myprogrammo        = $dbname.".myprogrammo";
-    public $tbl_spellcheck         = $dbname.".spellcheck";
-    public $tbl_srai_lookup        = $dbname.".srai_lookup";
-    public $tbl_undefined_defaults = $dbname.".undefined_defaults";
-    public $tbl_unknown_inputs     = $dbname.".unknown_inputs";
-    public $tbl_users              = $dbname.".users";
-    public $tbl_wordcensor         = $dbname.".wordcensor";
+    private $tbl_aiml;
+    private $tbl_aiml_userdefined;
+    private $tbl_botpersonality;
+    private $tbl_bots;
+    private $tbl_client_properties;
+    private $tbl_converstation_log;
+    private $tbl_myprogrammo;
+    private $tbl_spellcheck;
+    private $tbl_srai_lookup;
+    private $tbl_undefined_defaults;
+    private $tbl_unknown_inputs;
+    private $tbl_wordcensor;
+    private $tbl_users;
+
     
     /**
      * Function __construct
@@ -79,6 +80,21 @@ class Pythia
         $this->pass   = $array_database[2];
         $this->dbname = $array_database[3];
 
+        // Define tables
+        $this->tbl_aiml = $this->dbname.".aiml";
+        $this->tbl_aiml = $this->dbname.".aiml_userdefined";
+        $this->tbl_aiml = $this->dbname.".botpersonality";
+        $this->tbl_aiml = $this->dbname.".bots";
+        $this->tbl_aiml = $this->dbname.".client_properties";
+        $this->tbl_aiml = $this->dbname.".converstation_log";
+        $this->tbl_aiml = $this->dbname.".myprogrammo";
+        $this->tbl_aiml = $this->dbname.".spellcheck";
+        $this->tbl_aiml = $this->dbname.".srai_lookup";
+        $this->tbl_aiml = $this->dbname.".undefined_defaults";
+        $this->tbl_aiml = $this->dbname.".unknown_inputs";
+        $this->tbl_aiml = $this->dbname.".wordcensor";
+        $this->tbl_users = $this->dbname.".users";
+        
         $this->datalink = mysqli_connect($this->host, $this->user, $this->pass) or die("Connection not possible!");
         mysqli_select_db($this->datalink, $this->dbname) OR die("Could not select db!");
     }
@@ -92,7 +108,7 @@ class Pythia
     public function GetUsername($sender_id) 
     {
         // Testausgabe in die Logs:
-        WriteToLog("LOG", "Tabelle: ".$this->tbl_users."\n");
+        // WriteToLog("LOG", "Tabelle: ".$this->tbl_users."\n");
         
         $query  = "SELECT ";
         $query .= $this->dbname.".users.user_name";
@@ -112,10 +128,10 @@ class Pythia
      *
      */
 //     private function SetProperty($property, $value) {
-// //        $query  = "UPDATE "; 
-// //        $query .= $this->dbname.".botpersonality"
-// //        $query .= 
-// //        $query .= 
+//        $query  = "UPDATE "; 
+//        $query .= $this->dbname.".botpersonality"
+//        $query .= 
+//        $query .= 
 //     }
     
     /**
