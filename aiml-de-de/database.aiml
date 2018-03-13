@@ -28,4 +28,22 @@
             ||DATABASE||SET||<star index="1"/>||<star index="2"/>
         </template>
     </category>
+    <category>
+        <pattern>DB HILFE</pattern>
+        <template>
+            ||DATABASE||GET||HELP
+        </template>
+    </category>
+    <category>
+        <pattern>DB HELP</pattern>
+        <template>
+            ||DATABASE||GET||HELP
+        </template>
+    </category>
+    <category>
+        <pattern>DB KOMMANDOS</pattern>
+        <template>
+            ||DATABASE||GET||HELP
+        </template>
+    </category>
 </aiml>

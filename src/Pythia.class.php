@@ -47,6 +47,11 @@ class Pythia
     // The object which stores our
     private $datalink;
     
+    // Variables used for the
+    // identification of the user
+    private $sender_id;
+    private $user_name;
+    
     //--------------
     ### Table names
     private $tbl_aiml;
@@ -116,6 +121,9 @@ class Pythia
         $query .= " WHERE ".$this->tbl_users.".sender_id = '".$sender_id."' ";
         $row = mysqli_fetch_array(mysqli_query($this->datalink, $query)) or WriteToLog("ERROR", "Query could not be executed: ".$query."\n");
         
+        $this->sender_id = $sender_id;
+        $this->user_name = $row["user_name"];
+        
         // Return our complete result set
         return $row["user_name"];
     }
@@ -135,12 +143,10 @@ class Pythia
         
         if(mysqli_query($this->datalink, $query)) {
             WriteToLog("LOG", "Property ".$property." updated successfully!\n");
-            
-            return "Attribut ".strtoupper($property)." erfolgreich geändert!";
+            return true;
         }else{
             WriteToLog("ERROR", "Could not update property. Query: ".$query."\n");
-            
-            return "Konnte Attribut ".strtoupper($property)." nicht ändern.";
+            return false;
         }
     }
     
@@ -161,46 +167,76 @@ class Pythia
             case "NAME":
                 WriteToLog("PYTHIA", "Request for name found.\n");
                 
-                $answer = $this->SetProperty("name", $tmp[4]);
+                return $this->SetProperty("name", $tmp[4]);
             break;
             case "GENDER":
                 WriteToLog("PYTHIA", "Request for gender found.\n");
+                
+                return $this->SetProperty("gender", $tmp[4]);
             break;
             case "BOTMASTER":
                 WriteToLog("PYTHIA", "Request for botmaster found.\n");
+                
+                return $this->SetProperty("botmaster", $tmp[4]);
             break;
             case "VERSION":
                 WriteToLog("PYTHIA", "Request for version found.\n");
+                
+                $tmp[4] = str_replace(" ", ".", ltrim($tmp[4]));
+                
+                return $this->SetProperty("version", $tmp[4]);
             break;
             case "AGE":
                 WriteToLog("PYTHIA", "Request for age found.\n");
+                
+                return $this->SetProperty("age", $tmp[4]);
             break;
             case "WEBSITE":
                 WriteToLog("PYTHIA", "Request for website found.\n");
+                
+                return $this->SetProperty("website", $tmp[4]);
             break;
             case "BIRTHPLACE":
                 WriteToLog("PYTHIA", "Request for birthplace found.\n");
+                
+                return $this->SetProperty("birthplace", $tmp[4]);
             break;
             case "SIZE":
                 WriteToLog("PYTHIA", "Request for size found.\n");
+                
+                return $this->SetProperty("size", $tmp[4]);
             break;
             case "BUILD":
                 WriteToLog("PYTHIA", "Request for build found.\n");
+                
+                return $this->SetProperty("build", $tmp[4]);
             break;
             case "FOOTBALLTEAM":
                 WriteToLog("PYTHIA", "Request for footballteam found.\n");
+                
+                return $this->SetProperty("footballteam", $tmp[4]);
             break;
             case "FAVORITESPORT":
                 WriteToLog("PYTHIA", "Request for favoritesport found.\n");
+                
+                return $this->SetProperty("favoritesport", $tmp[4]);
             break;
             case "FAVORITEACTOR":
                 WriteToLog("PYTHIA", "Request for favoriteactor found.\n");
+                
+                return $this->SetProperty("favoriteactor", $tmp[4]);
             break;
+            
+            case "HELP":
+                WriteToLog("PYTHIA", "Showing user ".$this->user_name."[ID:".$this->sender_id."] all possible commandos.\n");
+                
+                return true;
+            break;
+            
             default:
                 WriteToLog("ERROR", "Request could not be executed: ".$tmp[2]."-".$tmp[3]."-".$tmp[4]."\n");
             break;
         }
-        return $answer;
     }
 }
 ?>

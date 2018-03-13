@@ -37,7 +37,7 @@
     $message = $input["entry"][0]["messaging"][0]["message"]["text"];
     
     // No messages from ARGUS itself, just from external users
-    if($sender != "199549497309203") {
+    if($sender != "199549497309203" AND !empty($message)) {
         /**
         * Pythia handles database requests.
         *
@@ -52,7 +52,7 @@
         if(!empty($message)) {
             WriteToLog("MESSAGE", $username." (".$sender."): ".$message."\n");
         }else{
-            WriteToLog("ERROR", "No message found...\n");
+            WriteToLog("ERROR", "No message found. Sender-ID:".$sender."\n");
         }
         
         // If sender and message are not empty
@@ -112,9 +112,14 @@
             WriteToLog("MESSAGE", "ARGUS: ".$message_to_reply."\n");
         }
         
-        // TODO Let's check for the Keyword ||DATABASE||
+        // Let's check for the Keyword ||DATABASE|| and proceed that request
+        // to Pythia, our database handler
         if(strpos($message_to_reply, "||DATABASE||") !== FALSE) {
-            $message_to_reply = $Pythia->Request($message_to_reply) or WriteToLog("ERROR", "Pythia: Request could not be proceeded!\n");
+            $Pythia->Request($message_to_reply) or WriteToLog("ERROR", "Pythia: Request could not be proceeded!\n");
+            
+            // Get a new answer from Pythia, so the user
+            // does not see our keywords
+            // $Pythia->
         }else{
             WriteToLog("PYTHIA", "Pythia: No keyword found.\n");
         }
