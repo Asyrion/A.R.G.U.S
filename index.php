@@ -115,11 +115,16 @@
         // Let's check for the Keyword ||DATABASE|| and proceed that request
         // to Pythia, our database handler
         if(strpos($message_to_reply, "||DATABASE||") !== FALSE) {
-            $Pythia->Request($message_to_reply) or WriteToLog("ERROR", "Pythia: Request could not be proceeded!\n");
-            
-            // Get a new answer from Pythia, so the user
-            // does not see our keywords
-            // $Pythia->
+            // Check if the user asked for a list of commands
+            if(strpos($message_to_reply, "||HELP") !== FALSE) {
+                $message_to_reply = $Pythia->ShowHelp();
+                
+                if($message_to_reply) {
+                    WriteToLog("MESSAGE", "Tryed to show help. ARGUS: ".$message_to_reply."\n");
+                }
+            }else{
+                $Pythia->Request($message_to_reply) or WriteToLog("ERROR", "Pythia: Could not execute request!\n");
+            }
         }else{
             WriteToLog("PYTHIA", "Pythia: No keyword found.\n");
         }

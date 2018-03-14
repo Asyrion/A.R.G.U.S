@@ -40,6 +40,9 @@ As of 2018-02-15 (V 0.0.1.4):
 - [ ] Add first function to Zeus
 - [ ] Add first function to Athene
 - [ ] Add first function to Dionysos
+- [ ] Implement correct error reporting and remove the dirty
+      functions for logging and checking errors
+- [ ] Add a badged picture for ARGUS-Facebookpage
 
 ### Classes and functions
 A brief overview of planned functions and classes
@@ -51,3 +54,5 @@ A brief overview of planned functions and classes
 * [ ] Athene.class.php for testing the WolframAlpha-API and getting
       results for asked questions.
 * [ ] Dionysos.class.php for request regarding food services
+* [ ] Maybe some kind of load dumpster class that removes
+      alle the dirty coding sh** from the index to a separate class

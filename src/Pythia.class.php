@@ -238,5 +238,16 @@ class Pythia
             break;
         }
     }
+    
+    
+    public function ShowHelp() {
+        $message  = "Eine kurze Übersicht über ";
+        $message .= "die aktuell möglichen Kommandos für Pythia: ";
+        $message .= " DB [FELD] SETZEN [WERT]  - Funktion für das setzen und abrufen von ";
+        $message .= "verschiedenen Attributen der Persönlichkeit von ARGUS. ";
+        $message .= "Dieses Kommando beinhaltet aktuell folgende Felder:";
+        
+        return $message;
+    }
 }
 ?>

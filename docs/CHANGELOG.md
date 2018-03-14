@@ -56,5 +56,6 @@
 - Finally solved the problems with german specialchars -> the file was encoded in iso-8859-1 
   and not in utf-8. After changing this encoding all specialchars were displayed correctly.
 
-2018-03-09 - V 0.0.1.4
-- 
+2018-03-14 - V 0.0.1.4
+- Added new keyword ||DATABASE||
+- Pythia can now change the botpersonality of ARGUS with a special commando `db [FIELD] setzen [VALUE]`
