@@ -28,9 +28,10 @@ As of V 0.0.1.4:
 - [ ] Add a badged picture for ARGUS-Facebookpage
 - [x] Remove the problems with linebreaks
 - [ ] Use proper error_reporting instead of self written dirty log classes
-- [ ] Add a whole new class for exception handling
+- [x] Add a whole new class for exception handling
 - [ ] Create a table for error codes and their meanings
 - [ ] Add the @-symbol to suppress a die after an error
+- [ ] Add misspelled words, to make ARGUS more flexible
 
 ### Hermes
 - [ ] Change the method of recognition by saving the convo id

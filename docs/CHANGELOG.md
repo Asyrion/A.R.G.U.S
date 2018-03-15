@@ -64,3 +64,6 @@
 - Added line breaks for messages in Pythia
 - Added command for Ptyhia to list all possible accessible function
 - Started adding exception handling to the index.php
+- Added several different exception classes (General, Pythia, more to come)
+- Added different errorcodes for different errors
+- Changed the way ARGUS handles his errors and writes his logs
