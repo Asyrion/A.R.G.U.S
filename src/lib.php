@@ -71,7 +71,7 @@ function FacebookcURL($url, $data, $event) {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 
         //Execute the request
-        $result = curl_exec($ch) or die(WriteToLog("ERROR", "Could not execute your request!.\n"));
+        $result = curl_exec($ch);
         
         return $result;
 }

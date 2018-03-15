@@ -11,35 +11,53 @@
     require_once("src/lib.php");
     
     try{
-        if(file_get_contents("config/access_token.argus")) {
+        if(!file_get_contents("config/access_token.argus")) {
             // jumps out of this block to the catch block
-            throw new General_Exception("No access token found", 001);
+            throw new General_Exception("Could not read file: access_token.argus", 101);
         }
         
         // Get the token from our config file
         $access_token = file_get_contents("config/access_token.argus");
         $access_token = trim($access_token);
-
+        
+        if(empty($access_token)) {
+            throw new General_Exception("No access token found", 701);
+        }
     }catch(General_Exception $e) {
         WriteToLog("ERROR", "[Error: ".$e->getCode()."] - ".$e->getMessage()."\n");
-        $access_token = file_get_contents("config/access_token.argus");
-        $access_token = trim($access_token);
     }
     
     $verify_token = "fb_argus_client";
 
     $hub_verify_token = null;
-
-    if(isset($_REQUEST["hub_challenge"])) {
+    
+    try{
+        if(isset($_REQUEST["hub_challenge"])) {
             $challenge = $_REQUEST["hub_challenge"];
             $challenge = trim($challenge, "\\xef\\xbb\\xbf");
 
             $hub_verify_token = $_REQUEST["hub_verify_token"];
-    }
-
-    if ($hub_verify_token === $verify_token) {
+            
+            if(empty($hub_verify_token)) {
+                throw new General_Exception("No hub_challenge set", 901);
+            }
+        }
+        
+        if ($hub_verify_token === $verify_token) {
             $challenge = str_replace("\ufeff", "", $challenge); 
             echo $challenge;
+            
+            if(empty($challenge)) {
+                throw new General_Exception("hub_verify_token does not match verify_token", 711);
+            }
+        }
+        
+    }catch(General_Exception $e) {
+        if($e->getCode() == 901) {    
+            WriteToLog("ERROR", "[FatalError: ".$e->getCode()."] - ".$e->getMessage()."\n");
+        }elseif($e->getCode() == 711){
+            WriteToLog("ERROR", "[Error: ".$e->getCode()."] - ".$e->getMessage()."\n");
+        }
     }
     
     $input = json_decode(file_get_contents("php://input"), true);
@@ -53,50 +71,84 @@
         * Pythia handles database requests.
         *
         * This includes Select-, Update- and Insert-Querys
+        *
+        * try-catch-block for Pythia
         */
-        include_once("src/Pythia.class.php");
-        
-        $Pythia = new Pythia;
-        
-        $username = $Pythia->GetUsername($sender);
-        
-        if(!empty($message)) {
-            WriteToLog("MESSAGE", $username." (".$sender."): ".$message."\n");
-        }else{
-            WriteToLog("ERROR", "No message found. Sender-ID:".$sender."\n");
+        try {
+            if(!include_once("src/Pythia.class.php")) {
+                throw new General_Exception("Could not include Pythia", 601);
+            }
+            
+            // Include our Pythia class
+            include_once("src/Pythia.class.php");
+            // Initiate Pythia
+            $Pythia = new Pythia;
+            
+            if(!$Pythia) {
+                throw new General_Exception("Could not initiate Pythia", 611);
+            }
+            
+            if(empty($Pythia->GetUsername($sender))) {
+                throw new General_Exception("Could not get username from database", 621);
+            }
+            // Get the username
+            $username = $Pythia->GetUsername($sender);
+            
+            if(!empty($message)) {
+                WriteToLog("MESSAGE", $username." (".$sender."): ".$message."\n");
+            }else{
+                throw new General_Exception("No message found", 721);
+            }
+        }catch(General_Exception $e) {
+            WriteToLog("ERROR", "[Error: ".$e->getCode()."] - ".$e->getMessage()."\n");
         }
         
         // If sender and message are not empty
         // let the user see that ARGUS is typing
         if(!empty($sender) && !empty($message)) {
-            WriteToLog("LOG", "Trying to show some action.\n");
-
-            //Get our API-Url from our config file
-            $url  = file_get_contents("config/facebook_api_url.argus");
-            $url  = trim($url);
-            $url .= $access_token;
             
-            // The JSON data for our typing_on-event
-            $typing_on = '{
-                "recipient":{
-                    "id":"'.$sender.'"
-                },
-                "sender_action":"typing_on"
-            }';
+            try{
+                if(!file_get_contents("config/facebook_api_url.argus")) {
+                    // jumps out of this block to the catch block
+                    throw new General_Exception("Could not read file: facebook_api_url.argus", 101);
+                }
+                //Get our API-Url from our config file
+                $url  = file_get_contents("config/facebook_api_url.argus");
+                $url  = trim($url);
+                $url .= $access_token;
             
-            // Let the user see a typing symbol
-            FacebookcURL($url, $typing_on, "typing_on");
-            
-            // The JSON data for our mark_seen-event
-            $mark_seen = '{
-                "recipient":{
-                    "id":"'.$sender.'"
-                },
-                "sender_action":"mark_seen"
-            }';
-            
-            // Mark the previous message as seen
-            FacebookcURL($url, $mark_seen, "mark_seen");
+                // The JSON data for our typing_on-event
+                $typing_on = '{
+                    "recipient":{
+                        "id":"'.$sender.'"
+                    },
+                    "sender_action":"typing_on"
+                }';
+                
+                if(!FacebookcURL($url, $typing_on, "typing_on")) {
+                    throw new General_Exception("Facebook event typing_on could not be initiated", 731);
+                }
+                
+                // Let the user see a typing symbol
+                FacebookcURL($url, $typing_on, "typing_on");
+                
+                // The JSON data for our mark_seen-event
+                $mark_seen = '{
+                    "recipient":{
+                        "id":"'.$sender.'"
+                    },
+                    "sender_action":"mark_seen"
+                }';
+                
+                if(!FacebookcURL($url, $mark_seen, "mark_seen")) {
+                    throw new General_Exception("Facebook event mark_seen could not be initiated", 731);
+                }
+                // Mark the previous message as seen
+                FacebookcURL($url, $mark_seen, "mark_seen");
+                
+            }catch(General_Exception $e) {
+                WriteToLog("ERROR", "[Error: ".$e->getCode()."] - ".$e->getMessage()."\n");
+            }
         }
         
         $message_to_reply = "";
@@ -108,20 +160,37 @@
         * Die Hermes Klasse ruft dabei die API von
         * ARGUS auf, welche mithilfe von AIML
         * eine passende Antwort gibt.
+        *
+        * try-catch-block for Hermes
         */
-        include_once("src/Hermes.class.php");
-
-        $Hermes = new Hermes($sender) or die(WriteToLog("ERROR", "Hermes could not be constructed!\n"));
-        
-        // Testmessage to check if the functions work
-        // $message   = "Test";
-        // $sender_id = "73849459";
-        
-        $message_to_reply = $Hermes->InputMessage($message, $sender);
-        
-        if(!empty($message_to_reply)) {
-            WriteToLog("MESSAGE", "ARGUS: ".$message_to_reply."\n");
+        try{
+            if(!include_once("src/Hermes.class.php")) {
+                throw new General_Exception("Could not include Hermes", 501);
+            }
+            // Include Hermes
+            include_once("src/Hermes.class.php");
+            
+            $Hermes = new Hermes($sender) or die(WriteToLog("ERROR", "Hermes could not be constructed!\n"));
+            
+            if(!$Hermes) {
+                throw new General_Exception("Could not initiate Hermes", 511);
+            }
+            
+            // Testmessage to check if the functions work
+            // $message   = "Test";
+            // $sender_id = "73849459";
+            
+            $message_to_reply = $Hermes->InputMessage($message, $sender);
+            
+            if(!empty($message_to_reply)) {
+                WriteToLog("MESSAGE", "ARGUS: ".$message_to_reply."\n");
+            }else{
+                throw new General_Exception("Hermes: No answer found", 521);
+            }
+        }catch(General_Exception $e) {
+            WriteToLog("ERROR", "[Error: ".$e->getCode()."] - ".$e->getMessage()."\n");
         }
+        
         
         // Let's check for the Keyword ||DATABASE|| and proceed that request
         // to Pythia, our database handler
@@ -129,10 +198,6 @@
             // Check if the user asked for a list of commands
             if(strpos($message_to_reply, "||HELP") !== FALSE) {
                 $message_to_reply = $Pythia->ShowHelp();
-                
-                if($message_to_reply) {
-                    WriteToLog("MESSAGE", "Tryed to show help. ARGUS: ".$message_to_reply."\n");
-                }
             }else{
                 $Pythia->Request($message_to_reply) or WriteToLog("ERROR", "Pythia: Could not execute request!\n");
             }
