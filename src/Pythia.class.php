@@ -226,26 +226,40 @@ class Pythia
                 
                 return $this->SetProperty("favoriteactor", $tmp[4]);
             break;
-            
-            case "HELP":
-                WriteToLog("PYTHIA", "Showing user ".$this->user_name."[ID:".$this->sender_id."] all possible commandos.\n");
-                
-                return true;
-            break;
-            
             default:
                 WriteToLog("ERROR", "Request could not be executed: ".$tmp[2]."-".$tmp[3]."-".$tmp[4]."\n");
             break;
         }
     }
     
-    
+    /**
+     * 
+     *
+     *
+     *
+     */
     public function ShowHelp() {
         $message  = "Eine kurze Übersicht über ";
-        $message .= "die aktuell möglichen Kommandos für Pythia: ";
-        $message .= " DB [FELD] SETZEN [WERT]  - Funktion für das setzen und abrufen von ";
-        $message .= "verschiedenen Attributen der Persönlichkeit von ARGUS. ";
-        $message .= "Dieses Kommando beinhaltet aktuell folgende Felder:";
+        $message .= "die aktuell möglichen Kommandos für Pythia: \r\n";
+        $message .= "DB [FELD] SETZEN [WERT] - Funktion für das setzen und abrufen von ";
+        $message .= "verschiedenen Attributen der Persönlichkeit von ARGUS. \r\n";
+        $message .= "Dieses Kommando beinhaltet aktuell folgende Felder:\r\n";
+        $message .= "NAME \r\n";
+        $message .= "     GENDER       ";
+        $message .= "     BOTMASTER    ";
+        $message .= "     VERSION                   ";
+        $message .= "     AGE                       ";
+        $message .= "     WEBSITE      ";
+        $message .= "     BIRTHPLACE                ";
+        $message .= "     SIZE                          ";
+        $message .= "     BUILD                     ";
+        $message .= "     FOOTBALLTEAM ";
+        $message .= "     FAVORITESPORT";
+        $message .= "     FAVORITEACTOR";
+        
+        // Replace all new lines with escaped new lines
+        // CAUTION else JSON removes this special characters automatically!!!
+        $message = str_replace(array("\r\n", "\r", "\n"), "\\n", $message);
         
         return $message;
     }

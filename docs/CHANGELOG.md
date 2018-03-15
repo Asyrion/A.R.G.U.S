@@ -59,3 +59,8 @@
 2018-03-14 - V 0.0.1.4
 - Added new keyword ||DATABASE||
 - Pythia can now change the botpersonality of ARGUS with a special commando `db [FIELD] setzen [VALUE]`
+
+2018-03-15 - V 0.0.1.4.2
+- Added line breaks for messages in Pythia
+- Added command for Ptyhia to list all possible accessible function
+- Started adding exception handling to the index.php

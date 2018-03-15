@@ -5,14 +5,25 @@
     
     //error_reporting(0);
     
+    // include our exceptions
+    require_once("src/Exceptions.class.php");
+    // include our library file
     require_once("src/lib.php");
     
-    // Get the token from our config file
-    $access_token = file_get_contents("config/access_token.argus");
-    $access_token = trim($access_token);
-    
-    if(empty($access_token)) {
-        WriteToLog("ERROR", "No Access token found!\n");
+    try{
+        if(file_get_contents("config/access_token.argus")) {
+            // jumps out of this block to the catch block
+            throw new General_Exception("No access token found", 001);
+        }
+        
+        // Get the token from our config file
+        $access_token = file_get_contents("config/access_token.argus");
+        $access_token = trim($access_token);
+
+    }catch(General_Exception $e) {
+        WriteToLog("ERROR", "[Error: ".$e->getCode()."] - ".$e->getMessage()."\n");
+        $access_token = file_get_contents("config/access_token.argus");
+        $access_token = trim($access_token);
     }
     
     $verify_token = "fb_argus_client";
@@ -89,7 +100,7 @@
         }
         
         $message_to_reply = "";
-            
+        
         /**
         * In der Datei Hermes.class.php wird das Verhalten von ARGUS
         * festgehalten. Hier trifft er seine Entscheidungen.
