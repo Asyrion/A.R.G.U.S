@@ -191,59 +191,70 @@
             WriteToLog("ERROR", "[Error: ".$e->getCode()."] - ".$e->getMessage()."\n");
         }
         
-        
-        // Let's check for the Keyword ||DATABASE|| and proceed that request
-        // to Pythia, our database handler
-        if(strpos($message_to_reply, "||DATABASE||") !== FALSE) {
-            // Check if the user asked for a list of commands
-            if(strpos($message_to_reply, "||HELP") !== FALSE) {
-                $message_to_reply = $Pythia->ShowHelp();
+        try{
+            // Let's check for the Keyword ||DATABASE|| and proceed that request
+            // to Pythia, our database handler
+            if(strpos($message_to_reply, "||DATABASE||") !== FALSE) {
+                // Check if the user asked for a list of commands
+                if(strpos($message_to_reply, "||HELP") !== FALSE) {
+                    $message_to_reply = $Pythia->ShowHelp();
+                }else{
+                    // Check if Pythia could execute the request
+                    if(!$Pythia->Request($message_to_reply)) {
+                        throw new Pythia_Exception("Pythia could not execute request: ".$message_to_reply, 631);
+                    }
+                    
+                    // $Pythia->Request($message_to_reply);
+                }
             }else{
-                $Pythia->Request($message_to_reply) or WriteToLog("ERROR", "Pythia: Could not execute request!\n");
+                WriteToLog("PYTHIA", "Pythia: No keyword found.\n");
             }
-        }else{
-            WriteToLog("PYTHIA", "Pythia: No keyword found.\n");
-        }
-        
-        //Get our API-Url from our config file
-        $url  = file_get_contents("config/facebook_api_url.argus");
-        $url  = trim($url);
-        $url .= $access_token;
-        
-        //Initiate cURL.
-        $ch = curl_init($url) or die(WriteToLog("ERROR", "cURL could not be initiated!\n"));
-        
-        // If cURL fails, output the error
-        if(!$ch) {
-            WriteToLog("ERROR", curl_error($ch)."\n");
-        }
-        
-        //The JSON data.
-        $jsonData = "{
-            'recipient':{
-            'id':'".$sender."'
-            },
-            'message':{
-            'text':'".$message_to_reply."'
+            
+            //Get our API-Url from our config file
+            $url  = file_get_contents("config/facebook_api_url.argus");
+            $url  = trim($url);
+            $url .= $access_token;
+            
+            //Initiate cURL.
+            $ch = curl_init($url) or die(WriteToLog("ERROR", "cURL could not be initiated!\n"));
+            
+            // If cURL fails, output the error
+            if(!$ch) {
+                WriteToLog("ERROR", curl_error($ch)."\n");
             }
-        }";
-        
-        //Encode the array into JSON.
-        $jsonDataEncoded = $jsonData;
+            
+            //The JSON data.
+            $jsonData = "{
+                'recipient':{
+                'id':'".$sender."'
+                },
+                'message':{
+                'text':'".$message_to_reply."'
+                }
+            }";
+            
+            //Encode the array into JSON.
+            $jsonDataEncoded = $jsonData;
 
-        //Tell cURL that we want to send a POST request.
-        curl_setopt($ch, CURLOPT_POST, 1);
+            //Tell cURL that we want to send a POST request.
+            curl_setopt($ch, CURLOPT_POST, 1);
 
-        //Attach our encoded JSON string to the POST fields.
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+            //Attach our encoded JSON string to the POST fields.
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
 
-        //Set the content type to application/json
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
-        //curl_setopt($ch, CURLOPT_HTTPHEADER, array(‘Content-Type: application/x-www-form-urlencoded’));
-        
-        //Execute the request
-        if(!empty($input["entry"][0]["messaging"][0]["message"])){
-            $result = curl_exec($ch);
+            //Set the content type to application/json
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+            //curl_setopt($ch, CURLOPT_HTTPHEADER, array(‘Content-Type: application/x-www-form-urlencoded’));
+            
+            //Execute the request
+            if(!empty($input["entry"][0]["messaging"][0]["message"])){
+                $result = curl_exec($ch);
+            }
+        }catch(Pythia_Exception $p) {
+            // Go 
+            WriteToLog("ERROR", "Pythia: Could not execute request!\n");
+        }catch(General_Exception $g) {
+            // Go
         }
     }
 ?>
