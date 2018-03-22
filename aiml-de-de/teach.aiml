@@ -20,21 +20,39 @@
 <!--  Complies with the AIML 1.0 Standard                               -->
 <!--  as adopted by the ALICE A.I. Foundation.                          -->
 <!--  Last modified 02-09-2018                                          -->
-<!--  file: test.aiml                                                   -->
+<!--  file: teach.aiml                                                   -->
 
 <!--  Used for testing AIML and creating a simple conversation          -->
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml version="2.0" encoding="UTF-8"?>
     <category>
-        <pattern>WIE HEISST DU</pattern>
+        <pattern>ICH MOECHTE DIR * BEIBRINGEN</pattern>
         <template>
-            Oh, mein Name ist <bot name="name"/>. Das solltest du aber wissen...
+            <random>
+                <li>Dann lass uns loslegen!</li>
+                <li>Bist du sicher das jetzt die richtige Zeit zum lernen ist?</li>
+                <li>Na gut...aber glaub nicht das mir das Ganze Spass macht!</li>
+                <li>Hast du keine bessere Beschaeftigung fuer mich...</li>
+            </random>
         </template>
     </category>
     <category>
-        <pattern>EINE * iST EINE *</pattern>
+        <pattern>TEACH</pattern>
         <template>
-            Wie sollte eine <star index="1"/> keine <star index="2"/> sein?
+           <random>
+                <li>Dann lass uns loslegen!</li>
+                <li>Bist du sicher das jetzt die richtige Zeit zum lernen ist?</li>
+                <li>Na gut...aber glaub nicht das mir das Ganze Spass macht!</li>
+            </random>        
+        </template>
+    </category>
+    
+    <!-- pattern -->
+    <category>
+        <pattern>*</pattern>
+        <that>Dann lass uns loslegen!</that>
+        <template>
+            ||TEACH||PATTERN||<star index="1"/>    
         </template>
     </category>
 </aiml>

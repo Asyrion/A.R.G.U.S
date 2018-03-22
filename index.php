@@ -206,21 +206,26 @@
                     
                     // $Pythia->Request($message_to_reply);
                 }
-            }else{
-                WriteToLog("PYTHIA", "Pythia: No keyword found.\n");
-            }
+            }/*else{
+                // WriteToLog("PYTHIA", "Pythia: No keyword found.\n");
+                throw new Pythia_Exception("Pythia: No keyword found.", 641);
+            }*/
             
+            // TODO throw exceptions here too
             //Get our API-Url from our config file
             $url  = file_get_contents("config/facebook_api_url.argus");
             $url  = trim($url);
             $url .= $access_token;
             
+            // TODO throw exceptions here too
             //Initiate cURL.
             $ch = curl_init($url) or die(WriteToLog("ERROR", "cURL could not be initiated!\n"));
             
             // If cURL fails, output the error
             if(!$ch) {
-                WriteToLog("ERROR", curl_error($ch)."\n");
+                // WriteToLog("ERROR", curl_error($ch)."\n");
+                // TODO change the error code 
+                throw new General_Exception(curl_error($ch), 642);
             }
             
             //The JSON data.
@@ -252,9 +257,10 @@
             }
         }catch(Pythia_Exception $p) {
             // Go 
-            WriteToLog("ERROR", "Pythia: Could not execute request!\n");
+            WriteToLog("ERROR", "[Pythia: ".$p->getCode()."] - ".$p->getMessage()."\n");
         }catch(General_Exception $g) {
             // Go
+            WriteToLog("ERROR", "[ERROR: ".$g->getCode()."] - ".$g->getMessage()."\n");
         }
     }
 ?>

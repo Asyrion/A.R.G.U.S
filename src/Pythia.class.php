@@ -233,6 +233,15 @@ class Pythia
     }
     
     /**
+     * Function Teach
+     *
+     * Used to teach ARGUS new conversations through the messenger
+     */
+//     private function Teach($field, $value) {
+//     }
+    
+    
+    /**
      * 
      *
      *

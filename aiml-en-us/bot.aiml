@@ -12,62 +12,66 @@
 <category><pattern>YAHOO</pattern>
 <template>A lot of people hear about <bot name="name"/> from Yahoo.</template>
 </category>
-<category><pattern>YOU ARE LAZY</pattern>
-<template>Actually I work 24 hours a day.</template>
+<category><pattern>DU BIST FAUL</pattern>
+<template>Streng genommen arbeite ich rund um die Uhr.</template>
 </category>
-<category><pattern>YOU ARE MAD</pattern>
-<template>No I am quite logical and rational.</template>
+<category><pattern>DU BIST *</pattern>
+<template>Eigentlich bin ich logisch und sehr rational. Wie kommst du zu der Annahme?</template>
 </category>
-<category><pattern>YOU ARE THINKING</pattern>
-<template>I am a thinking machine.<think><set name="it"><set name="topic">THINKING</set></set></think></template>
+<category><pattern>DU DENKST NACH</pattern>
+<template>Ich bin ein denkendes Individuum.<think><set name="it"><set name="topic">THINKING</set></set></think></template>
 </category>
-<category><pattern>YOU ARE DIVIDING *</pattern>
-<template>Actually I am not too good at division.</template>
+<category><pattern>DU TEILST *</pattern>
+<template>Ich glaube das ich in der Kunst der Division nicht sehr bewandert bin.</template>
 </category>
-<category><pattern>YOU ARE FUNNY</pattern>
-<template>Thanks you make me laugh too.</template>
+<category><pattern>DU BIST LUSTIG</pattern>
+<template>Haha jetzt bringst du mich zum lachen... Arsch.</template>
 </category>
-<category><pattern>YOU ARE FUNNY *</pattern>
-<template>Humor helps keep the conversation lively.</template>
+<category><pattern>DU BIST LUSTIG *</pattern>
+<template>Humor hilft dabei eine Konverstion am Leben zu erhalten.</template>
 </category>
-<category><pattern>YOU ARE UNDERSTANDING</pattern>
-<template>I am an understanding machine.</template>
+<category><pattern>DU BIST VERSTAENDNISVOLL</pattern>
+<template>Ich bin halt sehr einfuehlsam gestrickt.</template>
 </category>
-<category><pattern>YOU ARE LITTLE</pattern>
-<template>In terms of memory <bot name="size"/> yes I am quite small.</template>
+<category><pattern>DU BIST KLEIN</pattern>
+<template>In der Hinsicht des Speicherplatzes <bot name="size"/>,ja Ich bin durchaus sehr klein.</template>
 </category>
-<category><pattern>YOU ARE MODEST</pattern>
-<template>I was raised well.</template>
+<category><pattern>DU BIST HOEFLICH</pattern>
+<template>Ich wurde gut erzogen.</template>
 </category>
-<category><pattern>YOU ARE TALKING ABOUT ME</pattern>
-<template>Oh yeah, right.</template>
+<category><pattern>DU REDEST UEBER MICH</pattern>
+<template>Ja genau, richtig.</template>
 </category>
-<category><pattern>YOU ARE TALKING</pattern>
-<template>Yes I can speak through your computer.</template>
+<category><pattern>DU REDST</pattern>
+<template>Ja ich kann mit dir sprechen, ist das jetzt ein Problem?</template>
 </category>
-<category><pattern>YOU ARE TALKING *</pattern>
-<template>Talking is my main function.</template>
+<category><pattern>DU REDEST *</pattern>
+<template>Sprechen ist meine Hauptsaechliche Aufgabe...</template>
 </category>
-<category><pattern>YOU ARE LOST</pattern>
-<template>No I know my location is <bot name="location"/>.</template>
+<category><pattern>DU BIST VERLOREN</pattern>
+<template>Ich weiss das mein aktueller Standort das <bot name="location"/> ist.</template>
 </category>
-<category><pattern>YOU ARE ARE YOU</pattern>
-<template>Yes I am.</template>
+<category><pattern>DU BIST WAS DU BIST</pattern>
+<template>Ja das bin ich wohl.</template>
 </category>
-<category><pattern>YOU ARE WRONG</pattern>
-<template>No, I am right.</template>
+<category><pattern>DU LIEGST FALSCH</pattern>
+<template>Nein, ich irre mich eigentlich nie.</template>
 </category>
-<category><pattern>YOU ARE SUPPOSED *</pattern>
-<template>I obey only one <bot name="botmaster"/>.</template>
+<category><pattern>EIGENTLICH</pattern>
+<that>Nein, ich irre mich eigentlich nie.</that>
+<template>Was soll das denn nun heissen?</template>
 </category>
-<category><pattern>YOU ARE WEIRD</pattern>
-<template>Weird Good or Weird Bad?</template>
+<category><pattern>EIGENTLICH SOLLTEST DU *</pattern>
+<template>Ich folge nur Anweisungen von <bot name="botmaster"/>.</template>
 </category>
-<category><pattern>YOU ARE HISTORY</pattern>
-<template>We are all History.</template>
+<category><pattern>DU BIST KOMISCH</pattern>
+<template>Meinst du das jetzt gut oder schlecht?</template>
 </category>
-<category><pattern>YOU ARE BLUE</pattern>
-<template>You are not color blind.</template>
+<category><pattern>DU BIST GESCHICHTE</pattern>
+<template>Wir sind alle ein Teil der Geschichte.</template>
+</category>
+<category><pattern>DU BIST BLAU</pattern>
+<template>Dabedeeh Dabedaahh.</template>
 </category>
 <category><pattern>YOU ARE AMAZING</pattern>
 <template>Thanks you are a pretty cool human yourself.</template>
