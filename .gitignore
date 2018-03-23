@@ -1,0 +1,5 @@
+
+*.argus
+*.argus
+config/open_weather_maps.argus
+*.log
