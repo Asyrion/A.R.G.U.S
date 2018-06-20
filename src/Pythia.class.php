@@ -15,8 +15,8 @@ include_once("lib.php");
  *
  * This class handles database requests and is connected to Hermes.
  *
- * @function string GetUsername() 
- * @function CallAPI        ->
+ * @function string  GetUsername() 
+ * @function boolean SetProperty    ->
  * @function GetConvoID     ->
  * @function CheckKeywords  ->
  * @function ProceedKeyword ->
@@ -67,7 +67,6 @@ class Pythia
     private $tbl_unknown_inputs;
     private $tbl_wordcensor;
     private $tbl_users;
-
     
     /**
      * Function __construct
@@ -112,9 +111,6 @@ class Pythia
      */
     public function GetUsername($sender_id) 
     {
-        // Testausgabe in die Logs:
-        // WriteToLog("LOG", "Tabelle: ".$this->tbl_users."\n");
-        
         $query  = "SELECT ";
         $query .= $this->tbl_users.".user_name";
         $query .= " FROM ".$this->tbl_users;
@@ -151,8 +147,7 @@ class Pythia
     }
     
     /**
-     *
-     *
+     * TODO implement functionalitiy of $get_set variable
      *
      */
     public function Request($message) {
@@ -232,14 +227,102 @@ class Pythia
         }
     }
     
-    /**
-     * Function Teach
-     *
-     * Used to teach ARGUS new conversations through the messenger
-     */
-//     private function Teach($field, $value) {
-//     }
+    // TODO implement a function for teaching ARGUS 
+    // table: aiml
+    // fields:
+    //  - id             -> The id
+    //  - bot_id         -> the bot id of the active bot (1)
+    //  - pattern        -> The pattern to match for
+    //  - thatpattern    -> The that pattern to look for
+    //  - template       -> The answer of the bot
+    //  - topic          -> The topic this pattern and template belong to
+    //  - filename       -> The name where this aiml is stored
     
+    public function Teach($message) {
+        // Cut our incoming message
+        $array_message = explode("||", $message);
+    
+        $type    = $array_message[2];
+        $message = $array_message[3];
+    
+        // Create a array to store all the fields
+        // which need to be filled
+        $field                  = Array();
+        
+        $fields["bot_id"]       = 1; // ARGUS
+        $fields["filename"]     = "teached.aiml";
+        
+        // Put the right values in our variables
+        if($type == "PATTERN")
+        {
+            // Custom values
+            $fields["pattern"]      = $message;
+        }
+        else if($type == "THAT") 
+        {
+            $fields["thatpattern"]  = $message;
+        }
+        else if($type == "TOPIC") 
+        {
+            $fields["topic"]        = $message;
+        }
+        else if($type == "TEMPLATE") 
+        {
+            $fields["template"]     = $message;
+        }
+        
+        // Insert a new row 
+        if($type == "PATTERN") 
+        {
+            $insert  = "INSERT INTO ".$this->tbl_aiml." SET "; 
+            $insert .= $this->tbl_aiml.".bot_id      = '".$fields["bot_id"]."',";
+            $insert .= $this->tbl_aiml.".pattern     = '".$fields["pattern"]."',";
+            $insert .= $this->tbl_aiml.".thatpattern = '',";
+            $insert .= $this->tbl_aiml.".template    = '',";
+            $insert .= $this->tbl_aiml.".topic       = '',";
+            $insert .= $this->tbl_aiml.".filename    = '".$fields["filename"]."'";
+            mysqli_query($this->datalink, $insert);
+            
+            return TRUE;
+        }
+        // Get the last row and update it
+        else
+        {
+            // Get the id of the last inserted row
+            $query  = "SELECT ";
+            $query .= $this->tbl_aiml.".id";
+            $query .= " FROM ".$this->tbl_aiml;
+            $query .= " ORDER BY ".$this->tbl_aiml.".id DESC ";
+            $query .= " LIMIT 1 ";
+            $row = mysqli_fetch_array(mysqli_query($this->datalink, $query)) or WriteToLog("ERROR", "Query could not be executed: ".$query."\n");
+        
+            // Update that sh**
+            $update  = "UPDATE ".$this->tbl_aiml." SET ";
+            
+            // Update that column
+            if($type == "THAT") 
+            {
+                $update .= $this->tbl_aiml.".thatpattern = '".$fields["thatpattern"]."'";
+            }
+            
+            // Update topic column
+            if($type == "TOPIC" && isset($fields["topic"])) 
+            {
+                $update .= $this->tbl_aiml.".topic       = '".$fields["thatpattern"]."'";
+            }
+            
+            // Update template column
+            if($type == "TEMPLATE" && isset($fields["template"])) 
+            {
+                $update .= $this->tbl_aiml.".template    = '".$fields["thatpattern"]."'";
+            }
+            
+            $update .= " WHERE ".$this->tbl_aiml.".id    = '".$row["id"]."'";
+            mysqli_query($this->datalink, $update);
+            
+            return TRUE;
+        }
+    }
     
     /**
      * 
@@ -254,17 +337,17 @@ class Pythia
         $message .= "verschiedenen Attributen der Persönlichkeit von ARGUS. \r\n";
         $message .= "Dieses Kommando beinhaltet aktuell folgende Felder:\r\n";
         $message .= "NAME \r\n";
-        $message .= "     GENDER       ";
-        $message .= "     BOTMASTER    ";
-        $message .= "     VERSION                   ";
-        $message .= "     AGE                       ";
-        $message .= "     WEBSITE      ";
-        $message .= "     BIRTHPLACE                ";
-        $message .= "     SIZE                          ";
-        $message .= "     BUILD                     ";
-        $message .= "     FOOTBALLTEAM ";
-        $message .= "     FAVORITESPORT";
-        $message .= "     FAVORITEACTOR";
+        $message .= "GENDER \r\n";
+        $message .= "BOTMASTER \r\n";
+        $message .= "VERSION \r\n";
+        $message .= "AGE \r\n";
+        $message .= "WEBSITE \r\n";
+        $message .= "BIRTHPLACE \r\n";
+        $message .= "SIZE \r\n";
+        $message .= "BUILD \r\n";
+        $message .= "FOOTBALLTEAM \r\n";
+        $message .= "FAVORITESPORT \r\n";
+        $message .= "FAVORITEACTOR \r\n";
         
         // Replace all new lines with escaped new lines
         // CAUTION else JSON removes this special characters automatically!!!

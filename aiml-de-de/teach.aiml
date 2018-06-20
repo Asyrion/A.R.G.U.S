@@ -26,33 +26,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml version="2.0" encoding="UTF-8"?>
     <category>
-        <pattern>ICH MOECHTE DIR * BEIBRINGEN</pattern>
+        <pattern>* DIR * BEIBRINGEN</pattern>
         <template>
             <random>
-                <li>Dann lass uns loslegen!</li>
-                <li>Bist du sicher das jetzt die richtige Zeit zum lernen ist?</li>
-                <li>Na gut...aber glaub nicht das mir das Ganze Spass macht!</li>
-                <li>Hast du keine bessere Beschaeftigung fuer mich...</li>
+                <li>Warum denn das?</li>
+                <li>Dann lass uns anfangen...wir werden beide nicht juenger</li>
+                <li>Aber ich hab heute doch schon genug gelernt oder etwa nicht</li>
+                <li>Deine Probleme moechte ich haben, dass du die Zeit hast mir was beizubringen...</li>
             </random>
-        </template>
-    </category>
-    <category>
-        <pattern>TEACH</pattern>
-        <template>
-           <random>
-                <li>Dann lass uns loslegen!</li>
-                <li>Bist du sicher das jetzt die richtige Zeit zum lernen ist?</li>
-                <li>Na gut...aber glaub nicht das mir das Ganze Spass macht!</li>
-            </random>        
+            <think><set name="topic">test</set></think>
         </template>
     </category>
     
-    <!-- pattern -->
+    <!-- Pattern -->
+    <topic name="test">
+        <category>
+            <pattern>PATTERN *</pattern>
+            <template>
+                ||DATABASE||TEACH||PATTERN||<star index="1"/>
+            </template>
+        </category>
+        
+        <!-- that -->
+        <category>
+            <pattern>THAT *</pattern>
+            <template>
+                ||DATABASE||TEACH||THAT||<star index="1"/>
+            </template>
+        </category>
+        
+        <!-- topic -->
+        <category>
+            <pattern>TOPIC *</pattern>
+            <template>
+                ||DATABASE||TEACH||TOPIC||<star index="1"/>
+            </template>
+        </category>
+        
+        <!-- template -->
+        <category>
+            <pattern>TEMPLATE *</pattern>
+            <template>
+                ||DATABASE||TEACH||TEMPLATE||<star index="1"/>
+            </template>
+        </category>
+        
+        <!-- RAUS -->
+        <category>
+            <pattern>EXIT</pattern>
+            <template>
+                <random>
+                    <li>Dann hoeren wir halt auf...Hab auch genug gelernt.</li>
+                    <li>Warum biete ich mich ueberhaupt dafuer an?</li>
+                    <li>Kannst du dich nicht mal entscheiden</li>
+                </random>
+                <think><set name="topic">*</set></think>
+            </template>
+        </category>
+        
+        <!-- RAUS -->
+        <category>
+            <pattern>RAUS</pattern>
+            <template>
+                Raus aus der Template<think><set name="topic">*</set></think>
+            </template>
+        </category>
+    </topic>
+    
+    <!-- FERTIG -->
     <category>
-        <pattern>*</pattern>
-        <that>Dann lass uns loslegen!</that>
+        <pattern>APFEL</pattern>
+        <that>Lass uns ueber Bananen sprechen</that>
         <template>
-            ||TEACH||PATTERN||<star index="1"/>    
+            Lass uns ueber Aepfel sprechen
         </template>
     </category>
+    
 </aiml>

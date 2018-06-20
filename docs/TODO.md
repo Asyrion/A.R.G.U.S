@@ -60,6 +60,11 @@ As of V 0.0.1.4:
 ### Dionysos
 - [ ] Add first function to Dionysos
 
+### Lachesis
+- [ ] Create a API key for Lachesis
+- [ ] Test the api
+- [ ] Add first function to Lachesis
+
 ### Dumbster
 - [ ] Move the requests to the right classes and remove them from the index
 

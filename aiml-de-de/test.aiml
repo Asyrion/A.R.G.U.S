@@ -26,15 +26,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml version="2.0" encoding="UTF-8"?>
     <category>
-        <pattern>WIE HEISST DU</pattern>
+        <pattern>* DIR * BEIBRINGEN</pattern>
         <template>
-            Oh, mein Name ist <bot name="name"/>. Das solltest du aber wissen...
+            <random>
+                <li>Warum denn das?</li>
+                <li>Dann lass uns anfangen...wir werden beide nicht juenger</li>
+                <li>Aber ich hab heute doch schon genug gelernt oder etwa nicht</li>
+                <li>Deine Probleme moechte ich haben, dass du die Zeit hast mir was beizubringen...</li>
+            </random>
+            <think><set name="topic">test</set></think>
         </template>
     </category>
+    
+    <topic name="test">
+        <category>
+            <pattern>*</pattern>
+            <template>
+                In der Topic
+            </template>
+        </category>
+
+        <category>
+            <pattern>*</pattern>
+            <that>In der Topic</that>
+            <template>
+                Im that in der Topic 
+            </template>
+        </category>
+
+        <category>
+            <pattern>*</pattern>
+            <that>Im that in der Topic</that>
+            <template>
+                Das zweite that in der Topic
+            </template>
+        </category>
+        
+        <category>
+            <pattern>BANANA</pattern>
+            <template>
+                Lass uns ueber Bananen sprechen<think><set name="topic">*</set></think>
+            </template>
+        </category>
+    </topic>
+    
     <category>
-        <pattern>EINE * iST EINE *</pattern>
+        <pattern>APFEL</pattern>
+        <that>Lass uns ueber Bananen sprechen</that>
         <template>
-            Wie sollte eine <star index="1"/> keine <star index="2"/> sein?
+            Lass uns ueber Aepfel sprechen
         </template>
     </category>
+    
 </aiml>

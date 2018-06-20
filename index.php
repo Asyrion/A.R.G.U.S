@@ -3,8 +3,6 @@
     
     header('Content-Type: text/html; charset=utf-8');
     
-    //error_reporting(0);
-    
     // include our exceptions
     require_once("src/Exceptions.class.php");
     // include our library file
@@ -175,11 +173,7 @@
             if(!$Hermes) {
                 throw new General_Exception("Could not initiate Hermes", 511);
             }
-            
-            // Testmessage to check if the functions work
-            // $message   = "Test";
-            // $sender_id = "73849459";
-            
+
             $message_to_reply = $Hermes->InputMessage($message, $sender);
             
             if(!empty($message_to_reply)) {
@@ -198,18 +192,20 @@
                 // Check if the user asked for a list of commands
                 if(strpos($message_to_reply, "||HELP") !== FALSE) {
                     $message_to_reply = $Pythia->ShowHelp();
+                }else if(strpos($message_to_reply, "||TEACH") !== FALSE){
+                    // Teach ARGUS via chat
+                    if($Pythia->Teach($message_to_reply)){
+                        // ARGUS answer when teaching is successfull
+                        $message_to_reply = "Das war gar nicht so schwierig wie ich dachte...";
+                    }
                 }else{
                     // Check if Pythia could execute the request
                     if(!$Pythia->Request($message_to_reply)) {
                         throw new Pythia_Exception("Pythia could not execute request: ".$message_to_reply, 631);
                     }
-                    
-                    // $Pythia->Request($message_to_reply);
                 }
-            }/*else{
-                // WriteToLog("PYTHIA", "Pythia: No keyword found.\n");
-                throw new Pythia_Exception("Pythia: No keyword found.", 641);
-            }*/
+            }
+            
             
             // TODO throw exceptions here too
             //Get our API-Url from our config file

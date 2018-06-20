@@ -261,19 +261,23 @@ function score_matches($convoArr, $allrows, $pattern)
     $bot_parent_id = $convoArr['conversation']['bot_parent_id'];
     $bot_id = $convoArr['conversation']['bot_id'];
 
+    // TODO The score_matches function needs to be edited
+    // because false scores are created so that interpreting
+    // the aiml file format does not work as predicted
+    
     # set the scores for each type of word or sentence to be used in this function
-
+    
     # full pattern match scores:
     $user_defined_match                = 300;
     $this_bot_match                    = 250;
     $underscore_match                  = 100;
     $topic_underscore_match            = 80;
-    $topic_direct_match                = 50;
+    $topic_direct_match                = 30;
     $topic_star_match                  = 10;
     $thatpattern_underscore_match      = 45;
-    $thatpattern_direct_match          = 15;
+    $thatpattern_direct_match          = 25;
     $thatpattern_star_match            = 2;
-    $direct_pattern_match              = 10;
+    $direct_pattern_match              = 20; // default 10
     $pattern_direct_match              = 7;
     $pattern_star_match                = 1;
     $default_pattern_match             = 5;
@@ -281,11 +285,11 @@ function score_matches($convoArr, $allrows, $pattern)
     # individual word match scores:
     $uncommon_word_match               = 8;
     $common_word_match                 = 1;
-    $direct_word_match                 = 2;
+    $direct_word_match                 = 11;
     $thatpattern_direct_word_match     = 2;
     $underscore_word_match             = 25;
     $thatpattern_underscore_word_match = 25;
-    $star_word_match                   = 1;
+    $star_word_match                   = 6;
     $thatpattern_star_word_match       = 1;
     $rejected                          = -1000;
 

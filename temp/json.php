@@ -1,6 +1,6 @@
 <?php
 // Legt fest welche API getestet werden soll (Unit-Tests)
-$api_test = "WolframAlpha";
+$api_test = "eToro";
 
 /**
  * OpenWeatherMap-API Calls
@@ -132,6 +132,12 @@ if($api_test == "WolframAlpha") {
 //     }
 }
 
+
+### Could not be tested on date 04.05.2018
+if($api_test) {
+    ### Discovery API test
+    $discovery_request_url = "https://api.etoro.com/History/Candles";
+}
 
 // The input form, where we can chat with our system
 ?>
